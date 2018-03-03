@@ -14,20 +14,18 @@
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item>
-              <mat-icon>dialpad</mat-icon>
-              <mat-icon>dialpad</mat-icon>
-              <span>Redial</span>
+              <i class="material-icons">account_circle</i>
+              <span>Profile</span>
             </button>
 
-            <button mat-menu-item>
-              <mat-icon>notifications_off</mat-icon>
-              <mat-icon>dialpad</mat-icon>
-              <span>Disable alerts</span>
+            <button mat-menu-item (click)="auth.signOut()">
+              <i class="material-icons">reply</i>
+              <span>Log out</span>
             </button>
           </mat-menu>
 
-
-          <button (click)="auth.signOut()">Logout</button>
+<!-- 
+          <button (click)="auth.signOut()">Logout</button> -->
         </div>
       </div>
     </form>
@@ -60,16 +58,3 @@
   </nav>
 
 </ng-template>
-
-
-<div class="dropdown show">
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown link
-    </a>
-  
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-    </div>
-  </div>

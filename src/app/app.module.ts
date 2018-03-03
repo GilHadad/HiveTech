@@ -26,12 +26,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoreModule } from './core/core.module';
 import { UserProfileComponent } from './accounts/user-profile/user-profile.component';
 import { EntrepreneurSingInFormComponent } from './forms/entrepreneur-sing-in-form/entrepreneur-sing-in-form.component';
 import { NavbarHeaderComponent } from './base/navbar-header/navbar-header.component';
+import { PostsComponent } from './blogs/posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { NavbarHeaderComponent } from './base/navbar-header/navbar-header.compon
     UserProfileComponent,
     EntrepreneurSingInFormComponent,
     NavbarHeaderComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import { NavbarHeaderComponent } from './base/navbar-header/navbar-header.compon
     ReactiveFormsModule,
 
     Angular2FontawesomeModule,
+    NgbModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,

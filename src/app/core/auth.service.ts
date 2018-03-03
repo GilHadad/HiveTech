@@ -9,11 +9,19 @@ import { NotifyService } from './notify.service';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 
+interface Roles {
+  subscriber?: boolean;
+  editor?: boolean;
+  admin?: boolean;
+}
+
 interface User {
   uid: string;
   email?: string | null;
   photoURL?: string;
   displayName?: string;
+  roles?: Roles;
+
 }
 
 
@@ -54,9 +62,6 @@ export class AuthService {
       .catch((error) => this.handleError(error) );
   }
 
-
-
-
   signOut() {
     this.afAuth.auth.signOut().then(() => {
       this.router.navigate(['/']);
@@ -73,8 +78,11 @@ export class AuthService {
       email: user.email || null,
       displayName: user.displayName || 'nameless user',
       photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
+      roles: {
+        subscriber: true
+      }
     };
-    return userRef.set(data);
+    return userRef.set(data, { merge: true });
   }
 
   private handleError(error: Error) {

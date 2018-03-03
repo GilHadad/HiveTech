@@ -4,6 +4,7 @@ import { AuthGuard } from '../app/core/auth.guard';
 
 import { EntrepreneurSingInFormComponent } from '../app/forms/entrepreneur-sing-in-form/entrepreneur-sing-in-form.component';
 import { UserProfileComponent } from '../app/accounts/user-profile/user-profile.component';
+import { PostsComponent } from './blogs/posts/posts.component';
 
 const appRoutes: Routes = [
     {
@@ -24,6 +25,11 @@ const appRoutes: Routes = [
     {
         path: 'bbb',
         component: UserProfileComponent,
+    },
+    {
+        path: 'posts',
+        component: PostsComponent,
+        canActivate: [AuthGuard]
     },
 ];
 
