@@ -11,7 +11,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
 
 import {
-  MatButtonModule, MatCheckboxModule, MatIconModule, MatDatepickerModule, MatNativeDateModule
+  MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
@@ -20,7 +20,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+
 
 import { CoreModule } from './core/core.module';
 import { UserProfileComponent } from './accounts/user-profile/user-profile.component';
@@ -42,6 +48,8 @@ import { NavbarHeaderComponent } from './base/navbar-header/navbar-header.compon
     FormsModule,
     ReactiveFormsModule,
 
+    Angular2FontawesomeModule,
+
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -58,6 +66,8 @@ import { NavbarHeaderComponent } from './base/navbar-header/navbar-header.compon
     MatSelectModule,
     MatListModule,
     MatToolbarModule,
+    MatMenuModule,
+    NoopAnimationsModule,
     BrowserAnimationsModule,
 
   ],

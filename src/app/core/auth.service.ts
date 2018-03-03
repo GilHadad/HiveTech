@@ -33,7 +33,6 @@ export class AuthService {
           console.log(user.uid);
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
-          console.log('nnnnnn');
           return Observable.of(null);
         }
       });
