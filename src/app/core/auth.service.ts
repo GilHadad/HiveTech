@@ -29,16 +29,23 @@ interface User {
 export class AuthService {
 
   user: Observable<User | null>;
+  loginUserInfo: User;
 
   constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore,
-              private router: Router,
-              private notify: NotifyService) {
+    private afs: AngularFirestore,
+    private router: Router,
+    private notify: NotifyService) {
 
     this.user = this.afAuth.authState
       .switchMap((user) => {
         if (user) {
-          console.log(user.uid);
+
+          this.loginUserInfo = {
+            'uid': user.uid,
+            'email': user.email,
+            'photoURL': user.photoURL,
+            'displayName': user.displayName
+          };
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return Observable.of(null);
@@ -59,7 +66,7 @@ export class AuthService {
         this.notify.update('Welcome to Firestarter!!!', 'success');
         return this.updateUserData(credential.user);
       })
-      .catch((error) => this.handleError(error) );
+      .catch((error) => this.handleError(error));
   }
 
   signOut() {
@@ -90,9 +97,26 @@ export class AuthService {
     this.notify.update(error.message, 'error');
   }
 
+  // public map_user() {
+  //   let userInfo: User;
+  //   this.afAuth.authState
+  //     .switchMap((user) => {
+  //       if (user) {
+  //         userInfo = {
+  //           'uid': user.uid,
+  //           'email': user.email,
+  //           'photoURL': user.photoURL,
+  //           'displayName': user.displayName
+  //         };
 
 
+  //         return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+  //       } else {
+  //         return Observable.of(null);
+  //       }
+  //     });
 
+  // }
 }
 
 

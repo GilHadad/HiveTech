@@ -24,6 +24,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -72,6 +76,10 @@ import { PostsComponent } from './blogs/posts/posts.component';
     MatMenuModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
+    MatExpansionModule,
+    MatChipsModule,
+    MatSidenavModule,
+    MatRadioModule,
 
   ],
   providers: [],

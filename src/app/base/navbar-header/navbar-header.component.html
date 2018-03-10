@@ -2,6 +2,7 @@
   <a class="navbar-brand" href="#">{{brand}}</a>
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
+        <a class="navbar-brand" routerLink="/posts" routerLinkActive='active' >Posts</a>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <div *ngIf="auth.user | async as user">

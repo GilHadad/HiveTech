@@ -1,3 +1,121 @@
-<p>
-  posts works!
-</p>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header class="container">
+      <mat-panel-title>
+        Create new post
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="container">
+      <form [formGroup]="postForm">
+        <div class="example-container">
+
+          <mat-form-field>
+            <input matInput placeholder="Title" formControlName="title" required>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput placeholder="Content" formControlName="content" required rows="5"></textarea>
+          </mat-form-field>
+          <mat-form-field class="demo-chip-list">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (remove)="remove(tag)">
+                {{tag.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Add tags..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)" />
+            </mat-chip-list>
+          </mat-form-field>
+          <button (click)="addPost()" mat-raised-button color="accent">Add new post</button>
+
+
+
+
+        </div>
+      </form>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header class="container">
+      <mat-panel-title>
+        Search post
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="container">
+      <div class="example-container">
+        <mat-form-field>
+          <input matInput placeholder="Post" required>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+
+<!-- <pre>aboutYou: {{ postForm.value | json }}</pre>
+<p>aboutYou status: {{ postForm.status }}</p> -->
+
+
+
+<div class="side-bar-container">
+<mat-sidenav-container >
+  <mat-sidenav opened="true" #sidenav [mode]="mode.value" style="height: 100%;">
+
+    <p>
+      <button mat-button (click)="sidenav.toggle()">Close past list</button>
+    </p>
+    <pre>
+ghjghj ghj ghjghj ghjfghj fghj gfhj gfhj
+gfhjgfhj fghj gfhj 
+gfhjgfhjgfhjgfhj gfhj gfhj gfhj ghj gfhj gfhj gfhj fghj gfhj 
+gfhj gfhjghfj gfhjgfhj
+        </pre>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content style="height: 100%;">
+    <p>
+      <button mat-button (click)="sidenav.toggle()">Open post list</button>
+    </p>
+    <pre>
+      ghjghj ghj ghjghj ghjfghj fghj gfhj gfhj
+    </pre>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+</div>
+
+
+
+
+
+<!-- 
+
+<div class="container">
+
+  <input type="text" [(ngModel)]="title" name="title" placeholder="Title..">
+  <textarea [(ngModel)]="content" name="content" placeholder="Content.."></textarea>
+  <input type="submit" value="Add a Post" (click)="addPost()">
+
+  <h1>A specific post:</h1>
+  <h3>title: {{ (post | async)?.title }}</h3>
+  <p>content: {{ (post | async)?.content }}</p>
+
+
+
+
+  <ul *ngFor="let post of posts | async">
+    <li (click)="getPost(post.id)">
+      <strong>{{ post.data.title}}</strong> by: {{ post.data.userDisplayName }}
+      <br>
+      <pre>{{post.data.content}}</pre>
+    </li>
+  </ul>
+
+
+</div> -->
