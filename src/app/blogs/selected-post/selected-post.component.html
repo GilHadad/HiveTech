@@ -1,0 +1,6 @@
+<h1>A specific post:</h1>
+<h3>title: {{ (post | async)?.title }}</h3>
+<p>content: {{ (post | async)?.content }}</p>
+
+
+<button (click)="addCommentToPost()" mat-raised-button color="accent">Add comment</button>

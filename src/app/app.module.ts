@@ -28,6 +28,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +39,13 @@ import { UserProfileComponent } from './accounts/user-profile/user-profile.compo
 import { EntrepreneurSingInFormComponent } from './forms/entrepreneur-sing-in-form/entrepreneur-sing-in-form.component';
 import { NavbarHeaderComponent } from './base/navbar-header/navbar-header.component';
 import { PostsComponent } from './blogs/posts/posts.component';
+import { SelectedPostComponent } from './blogs/selected-post/selected-post.component';
+import { CommentComponent } from './blogs/comment/comment.component';
+import { GeneralDialogComponent } from './base/general-dialog/general-dialog.component';
+import { AddPostDialogComponent } from './blogs/add-post-dialog/add-post-dialog.component';
+import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-comment-dialog.component';
+
+
 
 @NgModule({
   declarations: [
@@ -45,6 +54,13 @@ import { PostsComponent } from './blogs/posts/posts.component';
     EntrepreneurSingInFormComponent,
     NavbarHeaderComponent,
     PostsComponent,
+    SelectedPostComponent,
+    CommentComponent,
+    GeneralDialogComponent,
+    AddPostDialogComponent,
+    AddCommentDialogComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -80,6 +96,8 @@ import { PostsComponent } from './blogs/posts/posts.component';
     MatChipsModule,
     MatSidenavModule,
     MatRadioModule,
+    MatTabsModule,
+    MatDialogModule,
 
   ],
   providers: [],

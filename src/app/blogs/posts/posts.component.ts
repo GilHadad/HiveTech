@@ -9,21 +9,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-interface Post {
-  title: string;
-  content: string;
-  userDisplayName: string;
-  userUID: string;
-  created: Date;
-  updated: Date;
-  crowns: number;
-  comments: number;
-  views: number;
-  relatedTags: string[];
-  active: boolean;
-
-}
-
+import { Post } from '../interfaces';
+import { Title } from '@angular/platform-browser';
 
 
 interface PostId extends Post {
@@ -59,6 +46,7 @@ export class PostsComponent implements OnInit {
 
   postDoc: AngularFirestoreDocument<Post>;
   post: Observable<Post>;
+  selectedPostId: string;
 
 
 
@@ -75,23 +63,26 @@ export class PostsComponent implements OnInit {
 
 
   ngOnInit() {
+
+
+
+    // this.createtTestingData();
+
     this.postsCol = this.afs.collection('posts');
     this.posts = this.postsCol.snapshotChanges()
       .map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Post;
           const id = a.payload.doc.id;
+
           return { id, data };
         });
       });
-
 
   }
 
   addPost() {
     this.afs.collection('posts').add({
-      // 'title': this.title,
-      // 'content': this.content,
       'title': this.postForm.get('title').value,
       'content': this.postForm.get('content').value,
       'tags': this.tags,
@@ -99,20 +90,27 @@ export class PostsComponent implements OnInit {
       'userUID': this.auth.loginUserInfo.uid,
       'created': new Date(),
       'updated': new Date(),
+      'lastCommentDate': null,
       'crowns': 0,
       'comments': 0,
       'views': 0,
-      'active': true
-
-
+      'active': true,
+      'editable': true
     });
+
+
+
   }
 
   getPost(postId) {
-    console.log(postId);
     this.postDoc = this.afs.doc('posts/' + postId);
     this.post = this.postDoc.valueChanges();
+    this.selectedPostId = postId;
+    console.log(this.selectedPostId);
 
+
+    // const path = 'posts/' + this.post.id + '/comments';
+    // console.log(this.post.payload.doc.id);
   }
 
 
@@ -137,6 +135,37 @@ export class PostsComponent implements OnInit {
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+  }
+
+
+
+
+  // ==============================================================
+
+
+  createtTestingData() {
+
+    for (let i = 1; i <= 10; i++) {
+      this.afs.collection('posts').add({
+        // 'title': this.title,
+        // 'content': this.content,
+        'title': 'title ' + i,
+        'content': 'bla bla bla bla',
+        'tags': this.tags,
+        'userDisplayName': this.auth.loginUserInfo.displayName,
+        'userUID': this.auth.loginUserInfo.uid,
+        'created': new Date(),
+        'updated': new Date(),
+        'lastCommentDate': null,
+        'crowns': 0,
+        'comments': 0,
+        'views': 0,
+        'active': true,
+        'editable': true
+      });
+
+    }
+
   }
 
 }
