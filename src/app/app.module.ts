@@ -101,6 +101,10 @@ import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-commen
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AddPostDialogComponent,
+    AddCommentDialogComponent,
+  ],
 })
 export class AppModule { }

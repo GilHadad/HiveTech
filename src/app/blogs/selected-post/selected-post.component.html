@@ -3,4 +3,8 @@
 <p>content: {{ (post | async)?.content }}</p>
 
 
-<button (click)="addCommentToPost()" mat-raised-button color="accent">Add comment</button>
+<button (click)="openDialog()" mat-raised-button color="accent">Add comment</button>
+
+<ul>
+    <li *ngFor="let comment of comments | async">{{comment.data.content}}</li>
+</ul>

@@ -1,3 +1,10 @@
+export interface User {
+    uid: string;
+    email?: string | null;
+    photoURL?: string;
+    displayName?: string;
+  }
+
 export interface Post {
     title: string;
     content: string;
@@ -19,7 +26,7 @@ export interface Comment {
     userUID: string;
     created: Date;
     updated: Date;
-    subTo: Comment;
+    subTo: string;
     active: boolean;
     editable: boolean;
 

@@ -9,7 +9,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { Post } from '../interfaces';
+import { Post, User } from '../interfaces';
 import { Title } from '@angular/platform-browser';
 
 
@@ -26,6 +26,7 @@ export class PostsComponent implements OnInit {
 
   mode = new FormControl('push');
 
+  usersCol: AngularFirestoreCollection<User>;
   postsCol: AngularFirestoreCollection<Post>;
   posts: any;
 
@@ -68,16 +69,47 @@ export class PostsComponent implements OnInit {
 
     // this.createtTestingData();
 
+    this.usersCol = this.afs.collection('users');
     this.postsCol = this.afs.collection('posts');
     this.posts = this.postsCol.snapshotChanges()
       .map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Post;
           const id = a.payload.doc.id;
+          let userInfo;
 
-          return { id, data };
+          this.usersCol.snapshotChanges().forEach(el => {
+            el.forEach(user => {
+              const uInfo = user.payload.doc.data() as User;
+              const uId = user.payload.doc.id;
+
+              if (data.userUID === uId) {
+                userInfo = uInfo;
+                console.log(userInfo);
+              }
+
+            });
+          });
+          console.log(userInfo);
+
+
+
+          return { id, data, userInfo };
         });
       });
+
+    // this.posts.forEach(element => {
+    //   console.log(element);
+    // });
+
+    // this.usersCol.snapshotChanges().forEach(el => {
+    //   el.forEach(user => {
+    //     const userInfo = user.payload.doc.data() as User;
+    //     const userId = user.payload.doc.id;
+    //     console.log(userInfo);
+    //   });
+    // });
+
 
   }
 
