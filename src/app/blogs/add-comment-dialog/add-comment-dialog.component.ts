@@ -13,6 +13,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 export class AddCommentDialogComponent implements OnInit {
 
   content = new FormControl();
+
   constructor(
     public auth: AuthService,
     private afs: AngularFirestore,
@@ -35,15 +36,42 @@ export class AddCommentDialogComponent implements OnInit {
   addCommentToPost() {
     const path = 'posts/' + this.data.postId + '/comments';
 
-    this.afs.collection(path).add({
+    const newComment = this.afs.collection(path).add({
       'content': this.content.value,
       'subTo': null,
       'userUID': this.auth.loginUserInfo.uid,
+      'userPhotoURL': this.auth.loginUserInfo.photoURL,
+      'userDisplayName': this.auth.loginUserInfo.displayName,
       'created': new Date(),
-      'updated': new Date(),
+      'updated': null,
       'editable': true,
       'active': true
     });
+
+    console.log(newComment);
+
+    newComment.then(comment => {
+      console.log(comment);
+      this.afs.collection('users').doc(this.auth.loginUserInfo.uid)
+        .collection('comments').doc(comment.id).set({
+          'post': this.data.postId,
+          'active': true,
+          'deteted': true,
+        });
+
+    });
+
+    this.afs.firestore.doc('/posts/' + this.data.postId).get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
+          this.afs.collection('posts/').doc(this.data.postId).update(
+            {
+              'comments': docSnapshot.data().comments + 1
+            });
+
+        }
+
+      });
   }
 
 

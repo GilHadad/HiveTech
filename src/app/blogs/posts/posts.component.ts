@@ -1,16 +1,19 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../core/auth.service';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+
+import { MatDialog } from '@angular/material';
+import { MatChipInputEvent } from '@angular/material';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { Post, User } from '../interfaces';
-import { Title } from '@angular/platform-browser';
+import { AddPostDialogComponent } from '../add-post-dialog/add-post-dialog.component';
+// import { Title } from '@angular/platform-browser';
 
 
 interface PostId extends Post {
@@ -43,6 +46,7 @@ export class PostsComponent implements OnInit {
   // Enter, comma
   separatorKeysCodes = [ENTER, COMMA];
 
+  dialogResult = '';
 
 
   postDoc: AngularFirestoreDocument<Post>;
@@ -53,7 +57,8 @@ export class PostsComponent implements OnInit {
 
   constructor(
     public auth: AuthService, private afs: AngularFirestore,
-    @Inject(FormBuilder) fb: FormBuilder
+    @Inject(FormBuilder) fb: FormBuilder,
+    public dialog: MatDialog
   ) {
     this.postForm = fb.group({
       title: [''],
@@ -64,11 +69,6 @@ export class PostsComponent implements OnInit {
 
 
   ngOnInit() {
-
-
-
-    // this.createtTestingData();
-
     this.usersCol = this.afs.collection('users');
     this.postsCol = this.afs.collection('posts');
     this.posts = this.postsCol.snapshotChanges()
@@ -76,73 +76,91 @@ export class PostsComponent implements OnInit {
         return actions.map(a => {
           const data = a.payload.doc.data() as Post;
           const id = a.payload.doc.id;
-          let userInfo;
 
-          this.usersCol.snapshotChanges().forEach(el => {
-            el.forEach(user => {
-              const uInfo = user.payload.doc.data() as User;
-              const uId = user.payload.doc.id;
-
-              if (data.userUID === uId) {
-                userInfo = uInfo;
-                console.log(userInfo);
-              }
-
-            });
-          });
-          console.log(userInfo);
-
-
-
-          return { id, data, userInfo };
+          return { id, data };
         });
       });
 
-    // this.posts.forEach(element => {
-    //   console.log(element);
-    // });
-
-    // this.usersCol.snapshotChanges().forEach(el => {
-    //   el.forEach(user => {
-    //     const userInfo = user.payload.doc.data() as User;
-    //     const userId = user.payload.doc.id;
-    //     console.log(userInfo);
-    //   });
-    // });
-
+    // this.createtTestingData();
 
   }
 
   addPost() {
-    this.afs.collection('posts').add({
+    const newPost = this.afs.collection('posts').add({
+      'id': null,
       'title': this.postForm.get('title').value,
       'content': this.postForm.get('content').value,
       'tags': this.tags,
       'userDisplayName': this.auth.loginUserInfo.displayName,
+      'userPhotoURL': this.auth.loginUserInfo.photoURL,
       'userUID': this.auth.loginUserInfo.uid,
       'created': new Date(),
-      'updated': new Date(),
+      'updated': null,
       'lastCommentDate': null,
-      'crowns': 0,
+      'cubes': 0,
       'comments': 0,
       'views': 0,
       'active': true,
       'editable': true
     });
 
+    newPost.then(post => {
+      const newPostDoc = this.afs.doc('posts/' + post.id);
+      newPostDoc.update({ id: post.id });
+      console.log(post.id);
+    });
+
 
 
   }
 
-  getPost(postId) {
+  getPost(postId, views) {
     this.postDoc = this.afs.doc('posts/' + postId);
     this.post = this.postDoc.valueChanges();
     this.selectedPostId = postId;
-    console.log(this.selectedPostId);
+
+    const viewid = postId + '_' + this.auth.loginUserInfo.uid;
+    const viewContent = {
+      'id': viewid,
+      'fisrt': new Date(),
+      'last': new Date(),
+      'count': 1
+    };
 
 
-    // const path = 'posts/' + this.post.id + '/comments';
-    // console.log(this.post.payload.doc.id);
+    this.afs.firestore.doc('/views/' + viewid).get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
+          this.afs.collection('views/').doc(viewid).update(
+            {
+            'last': new Date(),
+            'count': docSnapshot.data().count + 1
+          });
+        } else {
+          this.afs.collection('views/').doc(viewid).set(viewContent);
+          this.postDoc.update({ views: views + 1, });
+        }
+      });
+
+
+
+
+
+
+  }
+
+  openAddPostDialog() {
+    const dialogRef = this.dialog.open(AddPostDialogComponent, {
+      width: '600px',
+      data: {
+        postId: this.selectedPostId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      this.dialogResult = result;
+    });
   }
 
 
@@ -152,7 +170,7 @@ export class PostsComponent implements OnInit {
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.tags.push({ name: value.trim() });
+      this.tags.push(value.trim());
     }
 
     // Reset the input value
@@ -178,7 +196,7 @@ export class PostsComponent implements OnInit {
   createtTestingData() {
 
     for (let i = 1; i <= 10; i++) {
-      this.afs.collection('posts').add({
+      const newPost = this.afs.collection('posts').add({
         // 'title': this.title,
         // 'content': this.content,
         'title': 'title ' + i,
@@ -186,14 +204,21 @@ export class PostsComponent implements OnInit {
         'tags': this.tags,
         'userDisplayName': this.auth.loginUserInfo.displayName,
         'userUID': this.auth.loginUserInfo.uid,
+        'userPhotoURL': this.auth.loginUserInfo.photoURL,
         'created': new Date(),
         'updated': new Date(),
         'lastCommentDate': null,
-        'crowns': 0,
+        'cubes': 0,
         'comments': 0,
         'views': 0,
         'active': true,
         'editable': true
+      });
+
+      newPost.then(post => {
+        const newPostDoc = this.afs.doc('posts/' + post.id);
+        newPostDoc.update({ id: post.id });
+        console.log(post.id);
       });
 
     }

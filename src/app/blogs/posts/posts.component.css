@@ -1,11 +1,10 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .example-container > * {
-    width: 100%;
-  }
+
+.new-hexagon {
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+
+
 
 
   .cf-nav-search {
@@ -22,6 +21,7 @@
 .post-list {
   margin: 0px 0px 0px 20px;
 }
+
 
 /* =============== */
 

@@ -1,59 +1,20 @@
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header class="container">
-      <mat-panel-title>
-        Create new post
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="container">
-      <form [formGroup]="postForm">
-        <div class="example-container">
-
-          <mat-form-field>
-            <input matInput placeholder="Title" formControlName="title" required>
-          </mat-form-field>
-          <mat-form-field>
-            <textarea matInput placeholder="Content" formControlName="content" required rows="5"></textarea>
-          </mat-form-field>
-          <mat-form-field class="demo-chip-list">
-            <mat-chip-list #chipList>
-              <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (remove)="remove(tag)">
-                {{tag.name}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
-              <input placeholder="Add tags..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event)" />
-            </mat-chip-list>
-          </mat-form-field>
-          <button (click)="addPost()" mat-raised-button color="accent">Add new post</button>
-
-
-
-
-        </div>
-      </form>
+<mat-card>
+  <div class="row">
+    <div class="col-md-4">
+      <input class="form-control" id="searchPost" placeholder="Search...">
+      <!-- <mat-form-field>
+        <input matInput placeholder="Search...">
+      </mat-form-field> -->
     </div>
-  </mat-expansion-panel>
-</mat-accordion>
-
-
-
-<mat-accordion>
-  <mat-expansion-panel class="cf-nav-search">
-    <mat-expansion-panel-header class="container">
-      <mat-panel-title>
-        Search post
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="container">
-      <div class="example-container">
-        <mat-form-field>
-          <input matInput placeholder="Post" required>
-        </mat-form-field>
-      </div>
+    <div class="col-md-4">
+      <button mat-raised-button color="accent">Search Post</button>
     </div>
-  </mat-expansion-panel>
-</mat-accordion>
+    <div class="col-md-4 text-right">
+      <button (click)="openAddPostDialog()" mat-raised-button color="accent">Create new post</button>
+    </div>
+
+  </div>
+</mat-card>
 
 <div class="blog-container">
   <div class="row">
@@ -61,12 +22,13 @@
 
     <div class="col-md-4">
       <mat-card class="post-list-item" *ngFor="let post of posts | async">
-        <div class="row">
+        <div class="row" (click)="getPost(post.id, post.data.views)">
 
-          <div class="col-md-2">
+          <div class="col-lg-2 col-4">
             <div class="post-list">
-              <div class="hexagon" style="display:inline-block"></div>
-              <div style="display:inline-block">{{ post.data.crowns }}</div>
+              <!-- <div class="hexagon" style="display:inline-block"></div>
+              <div style="display:inline-block">{{ post.data.crowns }}</div> -->
+              <fa name="fas fa-cube fa-1x"></fa> {{ post.data.cubes }}
               <br/>
 
               <fa name="fas fa-comments fa-1x"></fa> {{ post.data.comments }}
@@ -76,14 +38,18 @@
             </div>
           </div>
 
-          <div class="col-md-10">
+          <div class="col-lg-10 col-8">
             <mat-card-header>
-              <mat-card-title (click)="getPost(post.id)">
+              <mat-card-title >
                 <strong>{{ post.data.title}}</strong>
               </mat-card-title>
               <mat-card-subtitle>
-                Post by: {{ post.data.userUID }} at: {{ post.data.created | date: 'yyyy-MM-dd' }}
-                <br/> Last update: {{ post.data.updated | date: 'yyyy-MM-dd'}}
+                Post by: {{ post.data.userDisplayName }}
+                <br/>At: {{ post.data.created | date: 'yyyy-MM-dd' }}
+                <br/>
+                <div *ngIf="post.data.updated">
+                  Updated: {{ post.data.updated | date: 'yyyy-MM-dd'}}
+                </div>
               </mat-card-subtitle>
             </mat-card-header>
           </div>
@@ -95,13 +61,15 @@
     </div>
 
     <div class="col-md-8">
-      
+
       <div *ngIf="post">
-      <app-selected-post [selectedPostId]="selectedPostId" [postDoc]="postDoc" [post]="post"></app-selected-post>
-    </div>
+        <app-selected-post [selectedPostId]="selectedPostId" [postDoc]="postDoc" [post]="post"></app-selected-post>
+
+      </div>
     </div>
 
   </div>
 
 </div>
+
 

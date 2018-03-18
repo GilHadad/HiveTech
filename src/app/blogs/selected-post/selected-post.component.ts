@@ -3,7 +3,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../core/auth.service';
-import { Post, Comment } from '../interfaces';
+import { Post, Comment, CommentsViewBy } from '../interfaces';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
@@ -28,6 +28,7 @@ export class SelectedPostComponent implements OnInit, OnChanges {
   commentCol: AngularFirestoreCollection<Comment>;
   comments: any;
 
+  viewBy: CommentsViewBy[];
 
   dialogResult = '';
 
@@ -37,11 +38,15 @@ export class SelectedPostComponent implements OnInit, OnChanges {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.viewBy = [{title: 'Rank'}, {title: 'Oldest'}];
+
+
+   }
 
   ngOnChanges() {
-    console.log('this.selectedPostId');
-    console.log(this.selectedPostId);
+    // console.log('this.selectedPostId');
+    // console.log(this.selectedPostId);
 
     this.commentCol = this.afs.collection('posts/' + this.selectedPostId + '/comments');
     this.comments = this.commentCol.snapshotChanges()
@@ -69,20 +74,4 @@ export class SelectedPostComponent implements OnInit, OnChanges {
     });
   }
 
-  // addCommentToPost() {
-  //   const path = 'posts/' + this.selectedPostId + '/comments';
-  //   console.log(path);
-
-  //   this.afs.collection(path).add({
-  //     'content': 'hhhhh',
-  //     'userUID': this.auth.loginUserInfo.uid,
-  //     'subTo': null,
-  //     'created': new Date(),
-  //     'updated': new Date(),
-  //     'editable': true,
-  //     'active': true
-
-
-  //   });
-  // }
 }
