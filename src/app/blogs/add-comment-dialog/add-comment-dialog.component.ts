@@ -4,15 +4,19 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 
 import { AuthService } from '../../core/auth.service';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+
 @Component({
   selector: 'app-add-comment-dialog',
   templateUrl: './add-comment-dialog.component.html',
   styleUrls: ['./add-comment-dialog.component.css']
 })
+
 export class AddCommentDialogComponent implements OnInit {
 
   content = new FormControl();
+  commentCol: AngularFirestoreCollection<Comment>;
+  comments: any;
 
   constructor(
     public auth: AuthService,
@@ -59,7 +63,7 @@ export class AddCommentDialogComponent implements OnInit {
           'deteted': false,
         });
 
-      const aaa = this.afs.firestore.doc(comment.path).get().then(addedComment => {
+      this.afs.firestore.doc(comment.path).get().then(addedComment => {
         this.afs.firestore.doc('/posts/' + this.data.postId).get().then(selectedPost => {
           this.afs.collection('posts/').doc(this.data.postId).update(
             {
@@ -70,20 +74,28 @@ export class AddCommentDialogComponent implements OnInit {
 
       });
 
+      // // update comment edit status - NOT WORKING !!!
+      // this.commentCol = this.afs.collection('posts/' + this.data.postId + '/comments', ref => ref.orderBy('created'));
+      // this.comments = this.commentCol.snapshotChanges()
+      //   .map(actions => {
+      //     return actions.map(a => {
+      //       const data = a.payload.doc.data() as Comment;
+      //       const id = a.payload.doc.id;
+      //       return { id, data };
+      //     });
+      //   });
+
+      // this.afs.firestore.doc('/posts/' + this.data.postId).get().then(postItem => {
+      //   this.afs.firestore.doc(comment.path).get().then(commentItem => {
+      //     if (postItem.data().lastCommentDate > commentItem.data().created) {
+      //       comment.update({ 'editable': false });
+      //     }
+      //   });
+      // });
+
     });
 
-    // this.afs.firestore.doc('/posts/' + this.data.postId).get()
-    //   .then(docSnapshot => {
-    //     if (docSnapshot.exists) {
-    //       this.afs.collection('posts/').doc(this.data.postId).update(
-    //         {
-    //           'comments': docSnapshot.data().comments + 1,
-    //           // 'lastCommentDate': new Date()
-    //         });
 
-    //     }
-
-    //   });
   }
 
 

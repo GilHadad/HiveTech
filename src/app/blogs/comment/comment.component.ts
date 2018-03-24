@@ -52,14 +52,13 @@ export class CommentComponent implements OnInit, OnChanges {
           this.commentDoc.update({ 'editable': false });
         }
       });
-
     });
 
 
   }
 
   ngOnInit() {
-    // console.log(this.commentsDates);
+
 
   }
 }
