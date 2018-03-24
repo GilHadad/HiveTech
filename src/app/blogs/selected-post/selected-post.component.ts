@@ -3,7 +3,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../core/auth.service';
-import { Post, Comment, CommentsViewBy } from '../interfaces';
+import { Post, Comment } from '../interfaces';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
@@ -24,11 +24,13 @@ export class SelectedPostComponent implements OnInit, OnChanges {
   @Input() post: Observable<Post>;
   @Input() postDoc: AngularFirestoreDocument<Post>;
 
+  private cubesFromUser: number;
+  private cubeKey: string;
 
   commentCol: AngularFirestoreCollection<Comment>;
   comments: any;
 
-  viewBy: CommentsViewBy[];
+
 
   dialogResult = '';
 
@@ -39,16 +41,14 @@ export class SelectedPostComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.viewBy = [{title: 'Rank'}, {title: 'Oldest'}];
 
-
-   }
+  }
 
   ngOnChanges() {
-    // console.log('this.selectedPostId');
-    // console.log(this.selectedPostId);
+    this.cubeKey = this.auth.loginUserInfo.uid + '_' + this.selectedPostId;
+    this.CheckCube();
 
-    this.commentCol = this.afs.collection('posts/' + this.selectedPostId + '/comments');
+    this.commentCol = this.afs.collection('posts/' + this.selectedPostId + '/comments', ref => ref.orderBy('created'));
     this.comments = this.commentCol.snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -60,6 +60,68 @@ export class SelectedPostComponent implements OnInit, OnChanges {
       });
   }
 
+
+
+  addCude() {
+
+    this.afs.firestore.doc('/cubes/' + this.cubeKey).get().then(docSnapshot => {
+      this.cubesFromUser += 1;
+      console.log(this.cubesFromUser);
+      this.afs.collection('cubes').doc(this.cubeKey).set({ 'cubes': this.cubesFromUser });
+
+      this.afs.firestore.doc('/posts/' + this.selectedPostId).get().then(item => {
+        this.postDoc.update({ cubes: item.data().cubes + 1 });
+      });
+
+
+
+    });
+
+
+
+
+  }
+  removeCube() {
+
+    this.afs.firestore.doc('/cubes/' + this.cubeKey).get().then(docSnapshot => {
+      this.cubesFromUser -= 1;
+      console.log(this.cubesFromUser);
+      this.afs.collection('cubes').doc(this.cubeKey).set({ 'cubes': this.cubesFromUser });
+
+      this.afs.firestore.doc('/posts/' + this.selectedPostId).get().then(item => {
+        this.postDoc.update({ cubes: item.data().cubes - 1 });
+      });
+
+
+
+    });
+
+
+  }
+
+  CheckCube() {
+
+    this.afs.firestore.doc('/cubes/' + this.cubeKey).get().then(docSnapshot => {
+      if (docSnapshot.exists) {
+        this.cubesFromUser = docSnapshot.data().cubes;
+        console.log(this.cubesFromUser);
+
+      } else {
+        this.cubesFromUser = 0;
+        this.afs.collection('cubes').doc(this.cubeKey).set({ 'cubes': this.cubesFromUser });
+        console.log(this.cubesFromUser);
+
+      }
+    });
+
+  }
+
+
+
+
+
+
+
   openDialog() {
     const dialogRef = this.dialog.open(AddCommentDialogComponent, {
       width: '600px',
@@ -69,7 +131,6 @@ export class SelectedPostComponent implements OnInit, OnChanges {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
       this.dialogResult = result;
     });
   }

@@ -97,26 +97,7 @@ export class AuthService {
     this.notify.update(error.message, 'error');
   }
 
-  // public map_user() {
-  //   let userInfo: User;
-  //   this.afAuth.authState
-  //     .switchMap((user) => {
-  //       if (user) {
-  //         userInfo = {
-  //           'uid': user.uid,
-  //           'email': user.email,
-  //           'photoURL': user.photoURL,
-  //           'displayName': user.displayName
-  //         };
 
-
-  //         return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-  //       } else {
-  //         return Observable.of(null);
-  //       }
-  //     });
-
-  // }
 }
 
 

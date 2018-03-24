@@ -1,25 +1,59 @@
 <div class="selected-post-body">
-    <h3>{{ (post | async)?.title }}</h3>
-    <p>{{ (post | async)?.content }}</p>
+    <div class="row">
+        <div class="col-lg-1 col-1 center">
+            <div class="btn-group-vertical">
+                <fa *ngIf="cubesFromUser <= 0" (click)="addCude()" name="fas fa-chevron-up fa-2x"></fa>
+
+                <fa name="fas fa-cube fa-2x"></fa>
+
+                <fa *ngIf="cubesFromUser >= 0" (click)="removeCube()" name="fas fa-chevron-down fa-2x"></fa>
+            </div>
+        </div>
+        <div class="col-lg-9 col-8">
 
 
-    <button (click)="openDialog()" mat-raised-button color="accent">Add comment</button>
+            <h3>{{ (post | async)?.title }}</h3>
+            <p>{{ (post | async)?.content }}</p>
 
-    <div class="comments">
-        <h4>Comments:</h4>
+            <div class="text-right">
+                <button (click)="openDialog()" mat-raised-button color="accent">Add comment</button>
+            </div>
 
 
-        <ul class="list-group comments-list">
-            <li class="list-group-item" *ngFor="let comment of comments | async">
-                <pre>{{comment.data.content}}</pre>
-                <mat-card-subtitle>
-                    By: {{ comment.data.userDisplayName }} at: {{ comment.data.created | date: 'yyyy-MM-dd' }}
-                    <div *ngIf="comment.data.updated">
-                        Last update: {{ comment.data.updated | date: 'yyyy-MM-dd'}}
-                    </div>
-                </mat-card-subtitle>
-            </li>
-        </ul>
+
+        </div>
+
+        <div class="col-lg-2 col-3">
+            <mat-card>
+                <fa name="fas fa-cube fa-1x"></fa> {{ (post | async)?.cubes }}
+            </mat-card>
+            <mat-card>
+                <fa name="fas fa-comments fa-1x"></fa> {{ (post | async)?.comments }}
+            </mat-card>
+            <mat-card>
+                <fa name="fas fa-eye fa-1x"></fa> {{ (post | async)?.views }}
+            </mat-card>
+        </div>
+
 
     </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="comments">
+                <h4>Comments:</h4>
+
+
+                <ul class="list-group comments-list">
+                    <li class="list-group-item" *ngFor="let comment of comments | async">
+                        <app-comment [selectedCommentId]="comment.id" [selectedPostId]="selectedPostId"></app-comment>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
 </div>

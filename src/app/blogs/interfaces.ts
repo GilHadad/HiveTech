@@ -42,6 +42,4 @@ export interface Comment {
 
 }
 
-export interface CommentsViewBy {
-    title: string;
-}
+

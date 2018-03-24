@@ -1,3 +1,21 @@
-<p>
-  comment works!
-</p>
+<pre>{{ (comment | async)?.content }}</pre>
+<mat-card-subtitle>
+  <div>
+    By: {{ (comment | async)?.userDisplayName }} at: {{ (comment | async)?.created | date: 'yyyy-MM-dd' }}
+    <div *ngIf="(comment | async)?.updated">
+      Last update: {{ (comment | async)?.updated | date: 'yyyy-MM-dd'}}
+    </div>
+    <div *ngIf="(comment | async)?.editable && (comment | async)?.userUID === auth.loginUserInfo.uid" class="text-right">
+      <button mat-button>Edit</button>
+      <button mat-button>Delete</button>
+    </div>
+  </div>
+</mat-card-subtitle>
+<!-- {{(comment | async)?.editable}} -->
+
+<div *ngIf="(comment | async)?.editable">
+  you can edit me...
+</div>
+<div *ngIf="(comment | async)?.userUID === auth.loginUserInfo.uid">
+  you created me...
+</div>

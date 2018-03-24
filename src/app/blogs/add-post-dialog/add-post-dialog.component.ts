@@ -81,7 +81,7 @@ export class AddPostDialogComponent implements OnInit {
           'deteted': true,
         });
 
-      console.log(post.id);
+
     });
 
 

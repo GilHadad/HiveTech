@@ -110,4 +110,5 @@ export class EntrepreneurSingInFormComponent implements OnInit {
   getNextStepNumber(): Number {
     return this.stepConter++;
   }
+
 }

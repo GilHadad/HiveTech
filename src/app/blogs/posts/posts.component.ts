@@ -29,7 +29,6 @@ export class PostsComponent implements OnInit {
 
   mode = new FormControl('push');
 
-  usersCol: AngularFirestoreCollection<User>;
   postsCol: AngularFirestoreCollection<Post>;
   posts: any;
 
@@ -69,8 +68,8 @@ export class PostsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.usersCol = this.afs.collection('users');
-    this.postsCol = this.afs.collection('posts');
+
+    this.postsCol = this.afs.collection('posts', ref => ref.orderBy('created', 'desc'));
     this.posts = this.postsCol.snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -107,7 +106,6 @@ export class PostsComponent implements OnInit {
     newPost.then(post => {
       const newPostDoc = this.afs.doc('posts/' + post.id);
       newPostDoc.update({ id: post.id });
-      console.log(post.id);
     });
 
 
@@ -218,7 +216,6 @@ export class PostsComponent implements OnInit {
       newPost.then(post => {
         const newPostDoc = this.afs.doc('posts/' + post.id);
         newPostDoc.update({ id: post.id });
-        console.log(post.id);
       });
 
     }

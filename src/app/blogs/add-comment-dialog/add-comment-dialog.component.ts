@@ -48,7 +48,7 @@ export class AddCommentDialogComponent implements OnInit {
       'active': true
     });
 
-    console.log(newComment);
+
 
     newComment.then(comment => {
       console.log(comment);
@@ -56,22 +56,34 @@ export class AddCommentDialogComponent implements OnInit {
         .collection('comments').doc(comment.id).set({
           'post': this.data.postId,
           'active': true,
-          'deteted': true,
+          'deteted': false,
         });
+
+      const aaa = this.afs.firestore.doc(comment.path).get().then(addedComment => {
+        this.afs.firestore.doc('/posts/' + this.data.postId).get().then(selectedPost => {
+          this.afs.collection('posts/').doc(this.data.postId).update(
+            {
+              'comments': selectedPost.data().comments + 1,
+              'lastCommentDate': addedComment.data().created
+            });
+        });
+
+      });
 
     });
 
-    this.afs.firestore.doc('/posts/' + this.data.postId).get()
-      .then(docSnapshot => {
-        if (docSnapshot.exists) {
-          this.afs.collection('posts/').doc(this.data.postId).update(
-            {
-              'comments': docSnapshot.data().comments + 1
-            });
+    // this.afs.firestore.doc('/posts/' + this.data.postId).get()
+    //   .then(docSnapshot => {
+    //     if (docSnapshot.exists) {
+    //       this.afs.collection('posts/').doc(this.data.postId).update(
+    //         {
+    //           'comments': docSnapshot.data().comments + 1,
+    //           // 'lastCommentDate': new Date()
+    //         });
 
-        }
+    //     }
 
-      });
+    //   });
   }
 
 
