@@ -60,7 +60,6 @@ export class AddCommentDialogComponent implements OnInit {
         .collection('comments').doc(comment.id).set({
           'post': this.data.postId,
           'active': true,
-          'deteted': false,
         });
 
       this.afs.firestore.doc(comment.path).get().then(addedComment => {

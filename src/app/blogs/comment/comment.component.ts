@@ -26,7 +26,7 @@ export class CommentComponent implements OnInit, OnChanges {
   commentDoc: AngularFirestoreDocument<Comment>;
   comment: Observable<Comment>;
 
-  lastCommentDate: Date;
+
 
   constructor(public auth: AuthService, private afs: AngularFirestore) { }
 
@@ -61,4 +61,23 @@ export class CommentComponent implements OnInit, OnChanges {
 
 
   }
+
+  deleteComment() {
+    // update comments active status to false
+    this.commentDoc.update({ 'active': false });
+
+    // update comments count on post
+    const selectedPostPath = 'posts/' + this.selectedPostId;
+    this.afs.firestore.doc('/posts/' + this.selectedPostId).get().then(postItem => {
+      this.afs.doc(selectedPostPath).update({ 'comments': postItem.data().comments - 1 });
+    });
+
+    // update user comments
+    const userCommentPath = '/users/' + this.auth.loginUserInfo.uid + '/comments/' + this.selectedCommentId;
+    this.afs.doc(userCommentPath).update({ 'active': false });
+
+  }
 }
+
+
+

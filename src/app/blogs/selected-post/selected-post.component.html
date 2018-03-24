@@ -47,9 +47,12 @@
 
 
                 <ul class="list-group comments-list">
-                    <li class="list-group-item" *ngFor="let comment of comments | async">
+                    <div *ngFor="let comment of comments | async">
+                        <!-- {{comment.data.active}} -->
+                    <li class="list-group-item" *ngIf="comment.data.active">
                         <app-comment [selectedCommentId]="comment.id" [selectedPostId]="selectedPostId"></app-comment>
                     </li>
+                </div>
                 </ul>
 
             </div>

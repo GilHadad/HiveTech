@@ -5,10 +5,10 @@
     <div *ngIf="(comment | async)?.updated">
       Last update: {{ (comment | async)?.updated | date: 'yyyy-MM-dd'}}
     </div>
-    <div *ngIf="(comment | async)?.editable && (comment | async)?.userUID === auth.loginUserInfo.uid" class="text-right">
+    <!-- <div *ngIf="(comment | async)?.editable && (comment | async)?.userUID === auth.loginUserInfo.uid" class="text-right"> -->
       <button mat-button>Edit</button>
-      <button mat-button>Delete</button>
-    </div>
+      <button mat-button (click)="deleteComment()">Delete</button>
+    <!-- </div> -->
   </div>
 </mat-card-subtitle>
 <!-- {{(comment | async)?.editable}} -->
