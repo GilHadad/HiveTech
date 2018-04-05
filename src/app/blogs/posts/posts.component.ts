@@ -69,7 +69,9 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.postsCol = this.afs.collection('posts', ref => ref.orderBy('created', 'desc'));
+    // this.afs.collection('system_posts').add({gil: 'hadad'});
+
+    this.postsCol = this.afs.collection('system_posts', ref => ref.orderBy('created', 'desc'));
     this.posts = this.postsCol.snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -120,7 +122,7 @@ export class PostsComponent implements OnInit {
     const viewid = postId + '_' + this.auth.loginUserInfo.uid;
     const viewContent = {
       'id': viewid,
-      'fisrt': new Date(),
+      'first': new Date(),
       'last': new Date(),
       'count': 1
     };

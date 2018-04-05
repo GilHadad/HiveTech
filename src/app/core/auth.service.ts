@@ -46,7 +46,7 @@ export class AuthService {
             'photoURL': user.photoURL,
             'displayName': user.displayName
           };
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.afs.doc<User>(`system_users/${user.uid}`).valueChanges();
         } else {
           return Observable.of(null);
         }

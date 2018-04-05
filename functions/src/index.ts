@@ -33,7 +33,6 @@ exports.postCreate = functions.firestore
             'userPhotoURL': post.userPhotoURL,
             'views': 0,
             'cubes': 0,
-            'aaa': event.params
         }
         admin.firestore().collection('system_users').doc(post.userUID).collection('posts').doc(postId)
         .set({active: true}, { merge: true });
@@ -67,7 +66,7 @@ exports.commentCreate = functions.firestore
     });
 
 
-    exports.viewCreate = functions.firestore
+exports.viewCreate = functions.firestore
     .document('views/{viewId}')
     .onCreate(event => {
         const viewId = event.params.viewId;
@@ -88,17 +87,20 @@ exports.commentCreate = functions.firestore
     });
 
 
-exports.userCreate = functions.auth.user().onCreate((event) => {
+exports.userCreate = functions.auth
+    .user().onCreate((event) => {
     const user = event.data; // The Firebase user.
 
     // const email = user.email; // The email of the user.
     // const displayName = user.displayName; // The display name of the user.
 
     const data = {
-        'uid': user.uid,
-        'email': user.email,
-        'displayName': user.displayName,
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        roles: {
+            subscriber: true
+          }
     }
     return admin.firestore().collection('system_users').doc(user.uid).set(data, { merge: true });
-
-});
+    });
