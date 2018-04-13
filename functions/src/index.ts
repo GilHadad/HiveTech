@@ -75,15 +75,49 @@ exports.viewCreate = functions.firestore
 
         const view = event.data.data()
 
-        console.log(view)
 
         const data = {
             'count': 0,
-            'first': view.first,
-            'last': view.first,
+            'created': view.created,
+            'updated': view.updated,
         };
 
         return admin.firestore().collection('system_views').doc(viewId).set(data, { merge: true });
+    });
+
+exports.viewUpdate = functions.firestore
+    .document('views/{viewId}')
+    .onUpdate(event => {
+        const viewId = event.params.viewId;
+        const postId = viewId.split("_")[0];
+        const userId = viewId.split("_")[1];
+
+        const view = event.data.data()
+        const data = {
+            'updated': view.updated,
+        };
+
+        return admin.firestore().collection('system_views').doc(viewId).update(data, { merge: true });
+    });
+
+    exports.systemViewUpdate = functions.firestore
+    .document('system_views/{viewId}')
+    .onUpdate(event => {
+        const viewId = event.params.viewId;
+        const postId = viewId.split("_")[0];
+        const userId = viewId.split("_")[1];
+
+        const view = event.data.data()
+        console.log(view)
+        const newCount = view.count + 1
+        console.log(newCount)
+
+        const data = {
+            'count': newCount,
+
+        };
+
+        return admin.firestore().collection('system_views').doc(viewId).update(data, { merge: true });
     });
 
 

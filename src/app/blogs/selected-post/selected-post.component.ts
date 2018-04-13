@@ -66,7 +66,7 @@ export class SelectedPostComponent implements OnInit, OnChanges {
 
     this.afs.firestore.doc('/cubes/' + this.cubeKey).get().then(docSnapshot => {
       this.cubesFromUser += 1;
-      console.log(this.cubesFromUser);
+      // console.log(this.cubesFromUser);
       this.afs.collection('cubes').doc(this.cubeKey).set({ 'cubes': this.cubesFromUser });
 
       this.afs.firestore.doc('/posts/' + this.selectedPostId).get().then(item => {
@@ -85,7 +85,7 @@ export class SelectedPostComponent implements OnInit, OnChanges {
 
     this.afs.firestore.doc('/cubes/' + this.cubeKey).get().then(docSnapshot => {
       this.cubesFromUser -= 1;
-      console.log(this.cubesFromUser);
+      // console.log(this.cubesFromUser);
       this.afs.collection('cubes').doc(this.cubeKey).set({ 'cubes': this.cubesFromUser });
 
       this.afs.firestore.doc('/posts/' + this.selectedPostId).get().then(item => {
@@ -104,22 +104,27 @@ export class SelectedPostComponent implements OnInit, OnChanges {
     this.afs.firestore.doc('/cubes/' + this.cubeKey).get().then(docSnapshot => {
       if (docSnapshot.exists) {
         this.cubesFromUser = docSnapshot.data().cubes;
-        console.log(this.cubesFromUser);
+        // console.log(this.cubesFromUser);
 
       } else {
         this.cubesFromUser = 0;
         this.afs.collection('cubes').doc(this.cubeKey).set({ 'cubes': this.cubesFromUser });
-        console.log(this.cubesFromUser);
+        // console.log(this.cubesFromUser);
 
       }
     });
 
+
+
   }
 
+  deletePost() {
+    this.afs.firestore.doc('/posts/' + this.selectedPostId).update({ active: false });
+  }
 
-
-
-
+  testMe() {
+    this.afs.firestore.doc('/posts/' + this.selectedPostId).update({ aaa: 'bbb' });
+  }
 
 
   openDialog() {
@@ -132,6 +137,7 @@ export class SelectedPostComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
+      this.ngOnChanges();
     });
   }
 

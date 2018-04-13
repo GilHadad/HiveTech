@@ -16,7 +16,9 @@
             <p>{{ (post | async)?.content }}</p>
 
             <div class="text-right">
+                    <button (click)="testMe()" mat-raised-button color="primary">testing</button>
                 <button (click)="openDialog()" mat-raised-button color="accent">Add comment</button>
+                <button *ngIf="(post | async)?.userUID === auth.loginUserInfo.uid" (click)="deletePost()" mat-raised-button color="warn">Delete post</button>
             </div>
 
 

@@ -121,10 +121,9 @@ export class PostsComponent implements OnInit {
 
     const viewid = postId + '_' + this.auth.loginUserInfo.uid;
     const viewContent = {
-      'id': viewid,
-      'first': new Date(),
-      'last': new Date(),
-      'count': 1
+      'userUID': this.auth.loginUserInfo.uid,
+      'created': new Date(),
+      'updated': new Date(),
     };
 
 
@@ -133,14 +132,27 @@ export class PostsComponent implements OnInit {
         if (docSnapshot.exists) {
           this.afs.collection('views/').doc(viewid).update(
             {
-            'last': new Date(),
-            'count': docSnapshot.data().count + 1
-          });
+              'updated': new Date(),
+            });
         } else {
           this.afs.collection('views/').doc(viewid).set(viewContent);
-          this.postDoc.update({ views: views + 1, });
         }
       });
+
+
+    // this.afs.firestore.doc('/views/' + viewid).get()
+    //   .then(docSnapshot => {
+    //     if (docSnapshot.exists) {
+    //       this.afs.collection('views/').doc(viewid).update(
+    //         {
+    //         'last': new Date(),
+    //         'count': docSnapshot.data().count + 1
+    //       });
+    //     } else {
+    //       this.afs.collection('views/').doc(viewid).set(viewContent);
+    //       this.postDoc.update({ views: views + 1, });
+    //     }
+    //   });
 
 
 
