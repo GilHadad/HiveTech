@@ -1,0 +1,211 @@
+<div class="boby">
+  <div class="container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-subtitle>
+          <h2>Your Journey Starts Here</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <mat-horizontal-stepper linear>
+          <mat-step [stepControl]="1">
+            <form [formGroup]="aboutYou">
+              <ng-template matStepLabel>About You</ng-template>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput placeholder="First name" formControlName="firstName" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Last name" formControlName="lastName" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput placeholder="email" formControlName="email" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Phone" formControlName="phone" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput placeholder="Address" formControlName="address" required>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <input matInput placeholder="Date of birth" formControlName="dateOfBirth" [matDatepicker]="pickerDateOfBirth" required>
+                    <mat-datepicker-toggle matSuffix [for]="pickerDateOfBirth"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDateOfBirth></mat-datepicker>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput placeholder="Linkedin" formControlName="linkedin" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Facebook" formControlName="facebook" required>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+
+                <div class="col-md-12">
+                  <pre>aboutYou: {{ aboutYou.value | json }}</pre>
+                  <p>aboutYou status: {{ aboutYou.status }}</p>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="2">
+            <form [formGroup]="aboutTheIdea">
+              <ng-template matStepLabel>About The Idea</ng-template>
+              <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                  <mat-form-field class="title-container">
+                    <input matInput placeholder="Title" formControlName="title" required>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-md-3"></div>
+
+                <div class="col-md-12">
+                  <mat-form-field class="description-container">
+                    <textarea matInput placeholder="Description" formControlName="description" required rows="5"></textarea>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-12">
+                  <mat-form-field class="chip-list">
+                    <mat-chip-list #platformList>
+                      <mat-chip *ngFor="let platform of platforms" [selectable]="true" [removable]="true" (remove)="remove(platform, platforms)">
+                        {{platform}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Add platforms..." [matChipInputFor]="platformList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event, platforms)" />
+                    </mat-chip-list>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-12">
+                  <mat-form-field class="chip-list">
+                    <mat-chip-list #tagList>
+                      <mat-chip *ngFor="let tag of relatedTags" [selectable]="true" [removable]="true" (remove)="remove(tag, relatedTags)">
+                        {{tag}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Add tags..." [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                        (matChipInputTokenEnd)="add($event, relatedTags)" />
+                    </mat-chip-list>
+                  </mat-form-field>
+                </div>
+
+
+
+
+              </div>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+              <div class="col-md-12">
+                <pre>aboutTheIdea: {{ aboutTheIdea.value | json }}</pre>
+                <p>aboutTheIdea status: {{ aboutTheIdea.status }}</p>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="3">
+            <form [formGroup]="development">
+              <ng-template matStepLabel>Development</ng-template>
+              <div class="row">
+
+
+                <div class="col-md-10">
+                  <mat-form-field class="chip-list">
+                    <mat-chip-list #codeLanguagesList>
+                      <mat-chip *ngFor="let codeLanguage of codeLanguages" [selectable]="true" [removable]="true" (remove)="remove(codeLanguage, codeLanguages)">
+                        {{codeLanguage}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Add languages..." [matChipInputFor]="codeLanguagesList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event, codeLanguages)" />
+                    </mat-chip-list>
+         
+                  </mat-form-field>
+                 
+                </div>
+
+                <div class="col-md-2">
+                  <button mat-button color="warn" class="clear-button" (click)="clearList(codeLanguages)">Clear list</button> 
+                </div>
+
+                <div class="col-md-10">
+                  <mat-form-field class="chip-list">
+                    <mat-chip-list #hardwareList>
+                      <mat-chip *ngFor="let hardware of hardwares" [selectable]="true" [removable]="true" (remove)="remove(hardware, hardwares)">
+                        {{hardware}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Add hardwares..." [matChipInputFor]="hardwareList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event, hardwares)" />
+                    </mat-chip-list>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-2">
+                    <button mat-button color="warn" class="clear-button">Clear list</button> 
+                  </div>
+
+                <div class="col-md-10">
+                  <mat-form-field class="chip-list">
+                    <mat-chip-list #softwareList>
+                      <mat-chip *ngFor="let software of softwares" [selectable]="true" [removable]="true" (remove)="remove(software, softwares)">
+                        {{software}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Add softwares..." [matChipInputFor]="softwareList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event, softwares)" />
+                    </mat-chip-list>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-2">
+                    <button mat-button color="warn" class="clear-button" clearList>Clear list</button> 
+                  </div>
+
+              </div>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+              <div class="col-md-12">
+                <pre>development: {{ development.value | json }}</pre>
+                <p>development status: {{ development.status }}</p>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="5">
+            <ng-template matStepLabel>Done</ng-template>
+            You are now done.
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+          </mat-step>
+
+        </mat-horizontal-stepper>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

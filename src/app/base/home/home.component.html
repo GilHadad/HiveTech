@@ -1,3 +1,61 @@
-<p>
-  home works!
-</p>
+<div class="home-boby">
+  <div class="container">
+
+
+
+
+    <mat-card>
+      <div class="home-contact">
+
+        <mat-grid-list cols="4">
+          <mat-grid-tile [colspan]=3>
+            <mat-card-subtitle>
+              <h1>{{title}}</h1>
+            </mat-card-subtitle>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]=1>
+            <img src="https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot.com/o/base%2Flogo.png?alt=media&token=0c8cd975-3fb1-4f30-b29a-334498bdd3eb"
+              height="100%">
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]=4>
+            <mat-card-subtitle>
+              <h4>{{content}}</h4>
+            </mat-card-subtitle>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+
+        <!-- <mat-grid-list cols="3">
+          <mat-grid-tile *ngFor="let point of points">
+
+            <div>{{point.title}}</div>
+            <div>{{point.descripton}}</div>
+          </mat-grid-tile>
+        </mat-grid-list> -->
+
+      </div>
+    </mat-card>
+    <br/>
+
+    <div *ngFor="let product of products">
+      <mat-card>
+
+        <mat-card-header>
+
+          <img src={{product.img}} alt="" width="250" height="250">
+
+          <mat-card-title>{{product.title}}</mat-card-title>
+          <mat-card-subtitle>{{product.descripton}}</mat-card-subtitle>
+
+        </mat-card-header>
+        <mat-card-actions>
+          <button a class="navbar-brand" routerLink={{product.slug}} routerLinkActive='active' mat-button>Get started</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+      <br/>
+    </div>
+    <br/>
+
+  </div>
+</div>

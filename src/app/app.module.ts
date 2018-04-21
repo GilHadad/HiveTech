@@ -30,11 +30,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoreModule } from './core/core.module';
+import { HomeComponent } from './base/home/home.component';
 import { UserProfileComponent } from './accounts/user-profile/user-profile.component';
 import { EntrepreneurSingInFormComponent } from './forms/entrepreneur-sing-in-form/entrepreneur-sing-in-form.component';
 import { NavbarHeaderComponent } from './base/navbar-header/navbar-header.component';
@@ -44,12 +46,14 @@ import { CommentComponent } from './blogs/comment/comment.component';
 import { GeneralDialogComponent } from './base/general-dialog/general-dialog.component';
 import { AddPostDialogComponent } from './blogs/add-post-dialog/add-post-dialog.component';
 import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-comment-dialog.component';
+import { ListProjectComponent } from './products/list-project/list-project.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     UserProfileComponent,
     EntrepreneurSingInFormComponent,
     NavbarHeaderComponent,
@@ -59,6 +63,8 @@ import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-commen
     GeneralDialogComponent,
     AddPostDialogComponent,
     AddCommentDialogComponent,
+    ListProjectComponent,
+
 
 
   ],
@@ -98,6 +104,7 @@ import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-commen
     MatRadioModule,
     MatTabsModule,
     MatDialogModule,
+    MatGridListModule,
 
   ],
   providers: [],
