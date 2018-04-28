@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
         title: 'I have an idea',
         descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla',
         img: 'https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot.com/o/assets%2Fhome%2Fbright-idea.jpg?alt=media&token=0b6f3b6c-e759-4125-82df-f6cbab29ab97',
-        slug: '/list-project',
+        slug: '/project-registration',
       },
       {
         title: 'I have money',

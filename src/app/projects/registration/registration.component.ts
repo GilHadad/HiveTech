@@ -21,13 +21,12 @@ interface ProjectBaseInfo {
   created: Date;
   status: String;
 }
-
 @Component({
-  selector: 'app-list-project',
-  templateUrl: './list-project.component.html',
-  styleUrls: ['./list-project.component.css']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
-export class ListProjectComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
 
 
   projectId: string;

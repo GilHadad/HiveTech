@@ -1,0 +1,396 @@
+<div class="boby" id='contactTop'>
+    <div class="container">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>
+            <h2>Your Journey Starts Here</h2>
+          </mat-card-subtitle>
+        </mat-card-header>
+  
+        <mat-divider></mat-divider>
+  
+        <mat-card-content>
+          <mat-horizontal-stepper linear>
+  
+            <mat-step>
+              <form [formGroup]="aboutYou">
+                <ng-template matStepLabel>About You</ng-template>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="First name" formControlName="firstName" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="Last name" formControlName="lastName" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="email" formControlName="email" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="Phone" formControlName="phone" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+  
+  
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="Date of birth" formControlName="dateOfBirth" [matDatepicker]="pickerDateOfBirth" required>
+                      <mat-datepicker-toggle matSuffix [for]="pickerDateOfBirth"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerDateOfBirth></mat-datepicker>
+                    </mat-form-field>
+  
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="Facebook link" formControlName="facebook">
+                    </mat-form-field>
+                  </div>
+  
+                </div>
+                <div class="row">
+  
+                  <div class="col-md-6">
+                    <button mat-button matStepperNext>Next</button>
+                  </div>
+  
+                  <div class="col-md-6 text-right">
+                      <button color="accent" (click)="saveStep(aboutYou)" mat-raised-button>Save Step</button>
+                    </div>
+  
+                  <div class="col-md-12">
+                    <pre>aboutYou: {{ aboutYou.value | json }}</pre>
+                    <p>aboutYou status: {{ aboutYou.status }}</p>
+                  </div>
+                </div>
+              </form>
+            </mat-step>
+  
+            <mat-step>
+              <form [formGroup]="schoolDetails">
+                <ng-template matStepLabel>About the school</ng-template>
+                <div class="row">
+  
+  
+                  <div class="col-md-6">
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="City" formControlName="city">
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-md-6">
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="school" formControlName="school">
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-md-6">
+                    <mat-form-field class="test-field">
+                      <input matInput placeholder="Class" formControlName="class">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+  
+                  <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                  </div>
+  
+                  <div class="col-md-12">
+                    <pre>schoolDetails: {{ schoolDetails.value | json }}</pre>
+                    <p>schoolDetails status: {{ schoolDetails.status }}</p>
+                  </div>
+                </div>
+              </form>
+            </mat-step>
+  
+            <mat-step>
+              <form [formGroup]="aboutTheIdea">
+                <ng-template matStepLabel>About The Idea</ng-template>
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                    <mat-form-field class="title-container">
+                      <input matInput placeholder="Title" formControlName="title" required>
+                    </mat-form-field>
+  
+                  </div>
+                  <div class="col-md-3"></div>
+  
+                  <div class="col-md-12">
+                    <mat-form-field class="description-container">
+                      <textarea matInput placeholder="Description" formControlName="description" required rows="5"></textarea>
+                    </mat-form-field>
+                  </div>
+  
+  
+                  <div class="col-md-10">
+                    <mat-form-field class="chip-list">
+                      <mat-chip-list #platformList>
+                        <mat-chip *ngFor="let platform of platforms" [selectable]="true" [removable]="true" (remove)="remove(platform, platforms)">
+                          {{platform}}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Add platforms..." [matChipInputFor]="platformList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event, platforms)" />
+                      </mat-chip-list>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-md-2">
+                    <button mat-button color="warn" class="clear-button" (click)="clearList(platforms)">Clear list</button>
+                  </div>
+  
+                  <div class="col-md-10">
+                    <mat-form-field class="chip-list">
+                      <mat-chip-list #tagList>
+                        <mat-chip *ngFor="let tag of relatedTags" [selectable]="true" [removable]="true" (remove)="remove(tag, relatedTags)">
+                          {{tag}}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Add tags..." [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                          (matChipInputTokenEnd)="add($event, relatedTags)" />
+                      </mat-chip-list>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-md-2">
+                    <button mat-button color="warn" class="clear-button" (click)="clearList(relatedTags)">Clear list</button>
+                  </div>
+  
+  
+                </div>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+                <div class="col-md-12">
+                  <pre>aboutTheIdea: {{ aboutTheIdea.value | json }}</pre>
+                  <p>aboutTheIdea status: {{ aboutTheIdea.status }}</p>
+                </div>
+              </form>
+            </mat-step>
+  
+            <mat-step>
+              <form [formGroup]="development">
+                <ng-template matStepLabel>Development</ng-template>
+                <div class="row">
+  
+  
+                  <div class="col-md-10">
+                    <mat-form-field class="chip-list">
+                      <mat-chip-list #codeLanguagesList>
+                        <mat-chip *ngFor="let codeLanguage of codeLanguages" [selectable]="true" [removable]="true" (remove)="remove(codeLanguage, codeLanguages)">
+                          {{codeLanguage}}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Add languages..." [matChipInputFor]="codeLanguagesList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event, codeLanguages)" />
+                      </mat-chip-list>
+  
+                    </mat-form-field>
+  
+                  </div>
+  
+                  <div class="col-md-2">
+                    <button mat-button color="warn" class="clear-button" (click)="clearList(codeLanguages)">Clear list</button>
+                  </div>
+  
+                  <div class="col-md-10">
+                    <mat-form-field class="chip-list">
+                      <mat-chip-list #hardwareList>
+                        <mat-chip *ngFor="let hardware of hardwares" [selectable]="true" [removable]="true" (remove)="remove(hardware, hardwares)">
+                          {{hardware}}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Add hardwares..." [matChipInputFor]="hardwareList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event, hardwares)" />
+                      </mat-chip-list>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-md-2">
+                    <button mat-button color="warn" class="clear-button" (click)="clearList(hardwares)">Clear list</button>
+                  </div>
+  
+                  <div class="col-md-10">
+                    <mat-form-field class="chip-list">
+                      <mat-chip-list #softwareList>
+                        <mat-chip *ngFor="let software of softwares" [selectable]="true" [removable]="true" (remove)="remove(software, softwares)">
+                          {{software}}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Add softwares..." [matChipInputFor]="softwareList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event, softwares)" />
+                      </mat-chip-list>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-md-2">
+                    <button mat-button color="warn" class="clear-button" (click)="clearList(softwares)">Clear list</button>
+                  </div>
+  
+                </div>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+                <div class="col-md-12">
+                  <pre>development: {{ development.value | json }}</pre>
+                  <p>development status: {{ development.status }}</p>
+                </div>
+              </form>
+            </mat-step>
+  
+            <mat-step>
+  
+              <form [formGroup]="stepForm">
+                <ng-template matStepLabel>Work flow program</ng-template>
+                <div class="row">
+  
+  
+  
+                  <div class="col-md-6">
+                    <mat-form-field class="title-container">
+                      <input matInput placeholder="Title" formControlName="title" required>
+                    </mat-form-field>
+  
+                  </div>
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3">
+  
+                    <mat-form-field class="title-container">
+                      <input type="number" matInput placeholder="Duration (in days)" formControlName="duration" required>
+                    </mat-form-field>
+  
+                  </div>
+  
+                  <div class="col-md-12">
+                    <mat-form-field class="description-container">
+                      <textarea matInput placeholder="Description" formControlName="description" required rows="5"></textarea>
+                    </mat-form-field>
+                  </div>
+  
+  
+                  <div class="col-md-12 text-right">
+                    <div *ngIf="stepFormStatus==='add'">
+  
+                      <button (click)="addstep()" mat-raised-button color="accent">Add step</button>
+                    </div>
+                  </div>
+                </div>
+            
+                  <div *ngIf="stepFormStatus==='update'" class="row">
+                    <div class="col-md-12">
+  
+                      <mat-form-field>
+                        <mat-select placeholder="Location" formControlName="location">
+                          <mat-option [value]="-1">No change</mat-option>
+                          <mat-option [value]="0">First</mat-option>
+                          <div *ngFor="let step of steps">
+  
+                            <mat-option *ngIf="stepForm.get('title').value!==step.title" [value]="step.index">
+                              after: {{step.title}}
+                            </mat-option>
+                          </div>
+                        </mat-select>
+                      </mat-form-field>
+                      
+  
+  
+  
+                    </div>
+  
+                    <div class="col-md-12 text-right">
+                      <button (click)="updateStep()" mat-raised-button color="accent">Update step</button>
+                    </div>
+                  </div>
+  
+  
+            
+              </form>
+  
+              <br/>
+  
+              <mat-divider></mat-divider>
+              <br/>
+              <div class="row step-container">
+                <div class="col-md-{{stepsRowSplit}} step-card" *ngFor="let step of steps">
+                  <mat-card>
+  
+  
+  
+                    <img mat-card-image src="https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot.com/o/forms%2Flist-project%2Fsetp_code.jpg?alt=media&token=e53720f8-d781-4e61-866a-f7b01ec8e8c9"
+                      alt="code">
+                    <div>
+                      <mat-card-subtitle>
+                        <h2>Step: {{step.index}}</h2>
+                      </mat-card-subtitle>
+                    </div>
+                    <mat-card-header>
+                      <mat-card-title>{{step.title}}</mat-card-title>
+                      <mat-card-subtitle>{{step.description}}</mat-card-subtitle>
+                    </mat-card-header>
+  
+                    <!-- <mat-card-content>
+                      <p>
+                        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes
+                        very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+                      </p>
+                    </mat-card-content> -->
+                    <mat-card-actions>
+                      <button mat-button (click)="selectStep(step); navInPage('contactTop')">UPDATE</button>
+                      <button mat-button (click)="deleteStep(step)">DELETE</button>
+                    </mat-card-actions>
+  
+  
+  
+                  </mat-card>
+                </div>
+              </div>
+  
+  
+              <br/>
+              <mat-divider></mat-divider>
+              <br/>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+  
+              <div class="col-md-6">
+                  <pre>stepForm: {{ stepForm.value | json }}</pre>
+                  <p>stepForm status: {{ stepForm.status }}</p>
+                </div>
+                
+              <div class="col-md-6">
+                <pre>workFlow: {{ workFlow.value | json }}</pre>
+                <p>workFlow status: {{ workFlow.status }}</p>
+              </div>
+  
+  
+  
+  
+            </mat-step>
+  
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              You are now done.
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+  
+          </mat-horizontal-stepper>
+        </mat-card-content>
+  
+      </mat-card>
+    </div>
+  </div>

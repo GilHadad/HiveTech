@@ -7,6 +7,7 @@ import { UserProfileComponent } from '../app/accounts/user-profile/user-profile.
 import { PostsComponent } from './blogs/posts/posts.component';
 import { HomeComponent } from './base/home/home.component';
 import { ListProjectComponent } from './products/list-project/list-project.component';
+import { RegistrationComponent } from './projects/registration/registration.component';
 
 const appRoutes: Routes = [
     {
@@ -20,8 +21,8 @@ const appRoutes: Routes = [
 
     },
     {
-        path: 'list-project',
-        component: ListProjectComponent,
+        path: 'project-registration',
+        component: RegistrationComponent,
         canActivate: [AuthGuard]
     },
     {

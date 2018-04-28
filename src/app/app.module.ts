@@ -47,6 +47,7 @@ import { GeneralDialogComponent } from './base/general-dialog/general-dialog.com
 import { AddPostDialogComponent } from './blogs/add-post-dialog/add-post-dialog.component';
 import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-comment-dialog.component';
 import { ListProjectComponent } from './products/list-project/list-project.component';
+import { RegistrationComponent } from './projects/registration/registration.component';
 
 
 
@@ -64,6 +65,7 @@ import { ListProjectComponent } from './products/list-project/list-project.compo
     AddPostDialogComponent,
     AddCommentDialogComponent,
     ListProjectComponent,
+    RegistrationComponent,
 
 
 
