@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../app/core/auth.guard';
+import { UserGuard } from '../app/core/user.guard';
+
 
 import { EntrepreneurSingInFormComponent } from '../app/forms/entrepreneur-sing-in-form/entrepreneur-sing-in-form.component';
 import { UserProfileComponent } from '../app/accounts/user-profile/user-profile.component';
@@ -8,6 +10,7 @@ import { PostsComponent } from './blogs/posts/posts.component';
 import { HomeComponent } from './base/home/home.component';
 import { ListProjectComponent } from './products/list-project/list-project.component';
 import { RegistrationComponent } from './projects/registration/registration.component';
+import { SignInComponent } from './accounts/sign-in/sign-in.component';
 
 const appRoutes: Routes = [
     {
@@ -23,6 +26,11 @@ const appRoutes: Routes = [
     {
         path: 'project-registration',
         component: RegistrationComponent,
+        canActivate: [UserGuard]
+    },
+    {
+        path: 'sign-in',
+        component: SignInComponent,
         canActivate: [AuthGuard]
     },
     {

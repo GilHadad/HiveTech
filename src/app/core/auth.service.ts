@@ -21,6 +21,7 @@ interface User {
   photoURL?: string;
   displayName?: string;
   roles?: Roles;
+  status?: string;
 
 }
 
@@ -44,13 +45,18 @@ export class AuthService {
             'uid': user.uid,
             'email': user.email,
             'photoURL': user.photoURL,
-            'displayName': user.displayName
+            'displayName': user.displayName,
+
           };
-          return this.afs.doc<User>(`system_users/${user.uid}`).valueChanges();
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return Observable.of(null);
         }
       });
+  }
+
+  getUserStatus(user: User): string {
+    return user.status;
   }
 
   ////// OAuth Methods /////
@@ -85,6 +91,7 @@ export class AuthService {
       email: user.email || null,
       displayName: user.displayName || 'nameless user',
       photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
+      status: user.status || 'guest',
       roles: {
         subscriber: true
       }

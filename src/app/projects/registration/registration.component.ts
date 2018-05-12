@@ -35,8 +35,8 @@ export class RegistrationComponent implements OnInit {
   projectList: any;
 
 
-  aboutYou: FormGroup;
-  schoolDetails: FormGroup;
+  // aboutYou: FormGroup;
+  // schoolDetails: FormGroup;
   aboutTheIdea: FormGroup;
   development: FormGroup;
   timeLine: FormGroup;
@@ -65,21 +65,21 @@ export class RegistrationComponent implements OnInit {
     @Inject(FormBuilder) fb: FormBuilder,
   ) {
 
-    this.aboutYou = fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
-      facebook: [''],
+    // this.aboutYou = fb.group({
+    //   firstName: ['', Validators.required],
+    //   lastName: ['', Validators.required],
+    //   email: ['', Validators.required],
+    //   phone: ['', Validators.required],
+    //   dateOfBirth: ['', Validators.required],
+    //   facebook: [''],
 
-    });
+    // });
 
-    this.schoolDetails = fb.group({
-      city: ['', Validators.required],
-      school: ['', Validators.required],
-      class: ['', Validators.required],
-    });
+    // this.schoolDetails = fb.group({
+    //   city: ['', Validators.required],
+    //   school: ['', Validators.required],
+    //   class: ['', Validators.required],
+    // });
 
     this.aboutTheIdea = fb.group({
       title: [''],
@@ -116,14 +116,24 @@ export class RegistrationComponent implements OnInit {
     this.projectId = this.afs.createId();
     const projectPath = 'users/' + this.auth.loginUserInfo.uid + '/projects';
 
-    this.afs.firestore.collection(projectPath).get().then(el => {
-      console.log(el.docs);
+    this.afs.firestore.collection(projectPath).get().then(projectsList => {
+      if (projectsList.size === 0) {
+        const newProject = this.afs.collection(projectPath).add({
+          created: new Date(),
+          status: 'registration'
+        });
+      } else {
+        console.log(projectsList.size);
+      }
+      // console.log(projectsList.size);
       // el.forEach(item => {
       //   console.log(item.id);
       //   if ()
       // });
     });
 
+    // const aaa = this.afs.firestore.collection('projects').doc('test').set(this.aboutYou.value);
+// console.log(aaa);
 
     // this.createTestSteps();
 

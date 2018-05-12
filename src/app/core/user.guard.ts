@@ -8,8 +8,8 @@ import { Observable } from 'rxjs/Observable';
 import { map, take, tap } from 'rxjs/operators';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
+export class UserGuard implements CanActivate {
+  constructor(private auth: AuthService, private router: Router) { }
 
 
   canActivate(
@@ -18,13 +18,22 @@ export class AuthGuard implements CanActivate {
 
     return this.auth.user.pipe(
       take(1),
-      map((user) => !!user),
-      tap((loggedIn) => {
-        if (!loggedIn) {
+      map((user) => {
+        if (user.status === 'active') {
+          console.log('Active');
+          return true;
+        } else {
+          console.log('NOT Active');
+          return false;
+        }
+      }),
+      tap((isActive) => {
+        if (!isActive) {
           console.log('access denied');
 
-          this.router.navigate(['/login']);
+          this.router.navigate(['/home']);
         }
+
       }),
     );
   }

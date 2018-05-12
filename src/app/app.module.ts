@@ -48,6 +48,7 @@ import { AddPostDialogComponent } from './blogs/add-post-dialog/add-post-dialog.
 import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-comment-dialog.component';
 import { ListProjectComponent } from './products/list-project/list-project.component';
 import { RegistrationComponent } from './projects/registration/registration.component';
+import { SignInComponent } from './accounts/sign-in/sign-in.component';
 
 
 
@@ -66,6 +67,7 @@ import { RegistrationComponent } from './projects/registration/registration.comp
     AddCommentDialogComponent,
     ListProjectComponent,
     RegistrationComponent,
+    SignInComponent,
 
 
 

@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     In simpler terms, the separator is a defined character that will be placed between each variable.
     `;
 
- 
+
     this.products = [
       {
         title: 'I have an idea',
@@ -59,9 +59,9 @@ export class HomeComponent implements OnInit {
     ];
 
     this.points = [
-      {title: 'title One', descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla'},
-      {title: 'title Two', descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla'},
-      {title: 'title Three', descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla'},
+      { title: 'title One', descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla' },
+      { title: 'title Two', descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla' },
+      { title: 'title Three', descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla' },
     ];
 
   }
