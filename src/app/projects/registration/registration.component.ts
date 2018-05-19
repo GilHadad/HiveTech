@@ -125,18 +125,8 @@ export class RegistrationComponent implements OnInit {
       } else {
         console.log(projectsList.size);
       }
-      // console.log(projectsList.size);
-      // el.forEach(item => {
-      //   console.log(item.id);
-      //   if ()
-      // });
+
     });
-
-    // const aaa = this.afs.firestore.collection('projects').doc('test').set(this.aboutYou.value);
-// console.log(aaa);
-
-    // this.createTestSteps();
-
   }
 
 
@@ -240,24 +230,6 @@ export class RegistrationComponent implements OnInit {
 
   saveStep(step: FormGroup): void {
     console.log(step.value);
-
-    // this.afs.collection('projects_registration').add({
-    //   'id': null,
-    //   'title': this.postForm.get('title').value,
-    //   'content': this.postForm.get('content').value,
-    //   'tags': this.tags,
-    //   'userDisplayName': this.auth.loginUserInfo.displayName,
-    //   'userPhotoURL': this.auth.loginUserInfo.photoURL,
-    //   'userUID': this.auth.loginUserInfo.uid,
-    //   'created': new Date(),
-    //   'updated': null,
-    //   'lastCommentDate': null,
-    //   'cubes': 0,
-    //   'comments': 0,
-    //   'views': 0,
-    //   'active': true,
-    //   'editable': true
-    // });
   }
 
   createTestSteps(): void {
@@ -312,23 +284,3 @@ export class RegistrationComponent implements OnInit {
   }
 }
 
-
-
-
-
-// step: number;
-// title: string;
-// description: string;
-// duration: number;
-// image: string;
-
-
-
-
-// ===== AVIAD =====
-
-// const newArr = [...arr.slice(0, i), newElement, ...arr.slice(i)]
-
-// function foo(a: number, ...args: string[]) {
-
-// }

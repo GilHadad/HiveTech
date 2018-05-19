@@ -33,15 +33,15 @@ const appRoutes: Routes = [
         component: SignInComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'aaa',
-        component: EntrepreneurSingInFormComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'bbb',
-        component: UserProfileComponent,
-    },
+    // {
+    //     path: 'aaa',
+    //     component: EntrepreneurSingInFormComponent,
+    //     canActivate: [AuthGuard]
+    // },
+    // {
+    //     path: 'bbb',
+    //     component: UserProfileComponent,
+    // },
     {
         path: 'posts',
         component: PostsComponent,
@@ -53,7 +53,7 @@ const appRoutes: Routes = [
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],
     exports: [RouterModule],
-    providers: [AuthGuard],
+    providers: [AuthGuard, UserGuard],
 
 })
 

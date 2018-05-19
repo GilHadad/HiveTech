@@ -49,6 +49,7 @@ import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-commen
 import { ListProjectComponent } from './products/list-project/list-project.component';
 import { RegistrationComponent } from './projects/registration/registration.component';
 import { SignInComponent } from './accounts/sign-in/sign-in.component';
+import { I18nService } from './base/i18n.service';
 
 
 
@@ -111,7 +112,7 @@ import { SignInComponent } from './accounts/sign-in/sign-in.component';
     MatGridListModule,
 
   ],
-  providers: [],
+  providers: [I18nService],
   bootstrap: [AppComponent],
   entryComponents: [
     AddPostDialogComponent,

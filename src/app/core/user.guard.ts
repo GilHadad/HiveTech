@@ -23,7 +23,8 @@ export class UserGuard implements CanActivate {
           console.log('Active');
           return true;
         } else {
-          console.log('NOT Active');
+          // console.log('NOT Active');
+          // console.log(user.status);
           return false;
         }
       }),
@@ -31,7 +32,7 @@ export class UserGuard implements CanActivate {
         if (!isActive) {
           console.log('access denied');
 
-          this.router.navigate(['/home']);
+          this.router.navigate(['/sign-in']);
         }
 
       }),

@@ -1,0 +1,34 @@
+.boby {
+    padding: 100px 0px 100px 0px;
+}
+
+.chip-list {
+    width: 100%;
+}
+
+.title-container {
+    width: 100%;
+}
+.description-container {
+    width: 100%;
+}
+
+.clear-button {
+    width: 100%;
+}
+
+.test-field {
+    width: 100%;
+}
+
+.step-container {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.step-card {
+    padding-bottom: 20px;
+ 
+
+}
+

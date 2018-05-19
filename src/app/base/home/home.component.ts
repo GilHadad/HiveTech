@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { I18nService } from '../i18n.service';
+
 
 
 interface Product {
@@ -27,7 +28,11 @@ export class HomeComponent implements OnInit {
   products: Product[];
   points: Point[];
 
-  constructor(public auth: AuthService, private afs: AngularFirestore) {
+  pageText: {
+    title: {code: 'title', en: 'Welcome to HiveTech', heb: 'ברוכים הבאים לHiveTech'}
+  };
+
+  constructor(public auth: AuthService, private i18n: I18nService) {
 
     this.title = 'Welcome to HiveTech';
     this.content = `

@@ -15,13 +15,14 @@ interface Roles {
   admin?: boolean;
 }
 
-interface User {
+export interface User {
   uid: string;
   email?: string | null;
   photoURL?: string;
   displayName?: string;
   roles?: Roles;
   status?: string;
+  userInfo?: any;
 
 }
 
@@ -68,10 +69,10 @@ export class AuthService {
 
   private oAuthLogin(provider: firebase.auth.AuthProvider) {
     return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
-        this.notify.update('Welcome to Firestarter!!!', 'success');
-        return this.updateUserData(credential.user);
-      })
+      // .then((credential) => {
+      //   this.notify.update('Welcome to Firestarter!!!', 'success');
+      //   return this.updateUserData(credential.user);
+      // })
       .catch((error) => this.handleError(error));
   }
 
