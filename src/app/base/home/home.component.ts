@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
-import { I18nService } from '../i18n.service';
 
 
 
@@ -32,7 +31,7 @@ export class HomeComponent implements OnInit {
     title: {code: 'title', en: 'Welcome to HiveTech', heb: 'ברוכים הבאים לHiveTech'}
   };
 
-  constructor(public auth: AuthService, private i18n: I18nService) {
+  constructor(public auth: AuthService) {
 
     this.title = 'Welcome to HiveTech';
     this.content = `
