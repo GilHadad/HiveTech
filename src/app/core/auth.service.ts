@@ -69,10 +69,10 @@ export class AuthService {
 
   private oAuthLogin(provider: firebase.auth.AuthProvider) {
     return this.afAuth.auth.signInWithPopup(provider)
-      // .then((credential) => {
-      //   this.notify.update('Welcome to Firestarter!!!', 'success');
-      //   return this.updateUserData(credential.user);
-      // })
+      .then((credential) => {
+        this.notify.update('Welcome to Firestarter!!!', 'success');
+        return this.updateUserData(credential.user);
+      })
       .catch((error) => this.handleError(error));
   }
 
@@ -97,7 +97,7 @@ export class AuthService {
         subscriber: true
       }
     };
-    return userRef.set(data, { merge: true });
+    // return userRef.set(data, { merge: true });
   }
 
   private handleError(error: Error) {
