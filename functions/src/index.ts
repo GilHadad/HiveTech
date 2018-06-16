@@ -11,174 +11,156 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
+interface UserMessage {
+    uid: string;
+    msg: string;
+    active: boolean;
+    date: Date;
+    type: string;
+}
 
-// exports.userCreate = functions.auth
-//     .user().onCreate((event) => {
 
-exports.setNewUser = functions.auth
-    .user().onCreate((event) => {
-        const user = event.data; // The Firebase user.
-        const data = {
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            roles: {
+
+exports.setNewUser = functions.auth.user().onCreate((user) => {
+
+    const data = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        roles: {
+            subscriber: false,
+            member: false,
+            admin: false
+        },
+        status: 'guest',
+        created: new Date()
+    }
+    return admin.firestore().collection('users').doc(user.uid).set(data, { merge: true });
+});
+
+exports.createUserRequest = functions.firestore
+    .document('requests/users/activationRequest/{requestsId}')
+    .onCreate((snapshot, context) => {
+
+        const requestsId = context.params.requestsId;
+        const userId = requestsId.split("_")[0];
+        const newUserInfo = snapshot.data()
+
+        let user_data: {};
+        let roles: {};
+        let msg: UserMessage;
+        let reqStatus: string;
+
+        // for checks
+        const valid: boolean = true
+
+        user_data = {
+            uid: userId,
+            user_info: newUserInfo.userInfo.about_you,
+            school: newUserInfo.userInfo.school_details,
+        }
+
+        if (valid) {
+
+            roles = {
                 subscriber: true,
-                member: false,
-                admin: false
-            },
-            status: 'guest',
-        }
-        return admin.firestore().collection('users').doc(user.uid).set(data, { merge: true });
+            }
 
+            msg = {
+                uid: userId,
+                msg: 'Congratulations, You became a subscriber',
+                active: true,
+                date: new Date(),
+                type: 'INFO'
+            }
 
+            reqStatus = 'approved ';
 
+            admin.firestore()
+                .collection('users').doc(userId)
+                .set({roles}, { merge: true });
 
-    })
+        } else {
 
-    // exports.postCreate = functions.firestore
-    //     .document('posts/{postId}')
-    //     .onCreate(event => {
+            msg = {
+                uid: userId,
+                msg: 'Your basic information is not valid. please contact us by mail for support',
+                active: true,
+                date: new Date(),
+                type: 'ERROR'
+            }
 
-    //         const postId = event.data.id;
-    //         const post = event.data.data();
-    //         const data = {
-    //             'id': postId,
-    //             'title': post.title,
-    //             'content': post.content,
-    //             'comments': 0,
-    //             'active': true,
-    //             'editable': true,
-    //             'last comment date': null,
-    //             'created': new Date(),
-    //             'update': null,
-    //             'tags': post.tags,
-    //             'userUID': post.userUID,
-    //             'userDisplayName': post.userDisplayName,
-    //             'userPhotoURL': post.userPhotoURL,
-    //             'views': 0,
-    //             'cubes': 0,
-    //         }
-    //         admin.firestore().collection('system_users').doc(post.userUID).collection('posts').doc(postId)
-    //             .set({ active: true }, { merge: true });
-
-    //         return admin.firestore().collection('system_posts').doc(postId).set(data, { merge: true });
-    //     });
-
-    // exports.commentCreate = functions.firestore
-    //     .document('posts/{postId}/comments/{commentsId}')
-    //     .onCreate(event => {
-    //         const postId = event.params.postId;
-    //         const commentsId = event.params.commentsId;
-    //         const comment = event.data.data()
-
-    //         const data = {
-    //             'content': comment.content,
-    //             'subTo': null,
-    //             'userUID': comment.userUID,
-    //             'userPhotoURL': comment.userPhotoURL,
-    //             'userDisplayName': comment.userDisplayName,
-    //             'created': new Date(),
-    //             'updated': null,
-    //             'editable': true,
-    //             'active': true
-    //         };
-
-    //         admin.firestore().collection('system_users').doc(comment.userUID).collection('comments').doc(commentsId)
-    //             .set({ active: true }, { merge: true });
-
-    //         return admin.firestore().collection('system_posts').doc(postId).collection('comments').doc(commentsId).set(data, { merge: true });
-    //     });
-
-
-    // exports.viewCreate = functions.firestore
-    //     .document('views/{viewId}')
-    //     .onCreate(event => {
-    //         const viewId = event.params.viewId;
-    //         const postId = viewId.split("_")[0];
-    //         const userId = viewId.split("_")[1];
-
-    //         const view = event.data.data()
-
-
-    //         const data = {
-    //             'count': 0,
-    //             'created': view.created,
-    //             'updated': view.updated,
-    //         };
-
-    //         return admin.firestore().collection('system_views').doc(viewId).set(data, { merge: true });
-    //     });
-
-    // exports.viewUpdate = functions.firestore
-    //     .document('views/{viewId}')
-    //     .onUpdate(event => {
-    //         const viewId = event.params.viewId;
-    //         const postId = viewId.split("_")[0];
-    //         const userId = viewId.split("_")[1];
-
-    //         const view = event.data.data()
-    //         const data = {
-    //             'updated': view.updated,
-    //         };
-
-    //         return admin.firestore().collection('system_views').doc(viewId).update(data, { merge: true });
-    //     });
-
-    // exports.systemViewUpdate = functions.firestore
-    //     .document('system_views/{viewId}')
-    //     .onUpdate(event => {
-    //         const viewId = event.params.viewId;
-    //         const postId = viewId.split("_")[0];
-    //         const userId = viewId.split("_")[1];
-
-    //         const view = event.data.data()
-    //         console.log(view)
-    //         const newCount = view.count + 1
-    //         console.log(newCount)
-
-    //         const data = {
-    //             'count': newCount,
-
-    //         };
-
-    //         return admin.firestore().collection('system_views').doc(viewId).update(data, { merge: true });
-    //     });
-
-
-    // exports.userCreate = functions.auth
-    //     .user().onCreate((event) => {
-    //         const user = event.data; // The Firebase user.
-
-    //         // const email = user.email; // The email of the user.
-    //         // const displayName = user.displayName; // The display name of the user.
-
-    //         const data = {
-    //             uid: user.uid,
-    //             email: user.email,
-    //             displayName: user.displayName,
-    //             roles: {
-    //                 subscriber: true
-    //             }
-    //         }
-    //         return admin.firestore().collection('system_users').doc(user.uid).set(data, { merge: true });
-    //     });
-
-    // exports.projectCreate = functions.firestore
-    .document('users/{userId}/projects/{projectId}')
-    .onCreate(event => {
-        const userId = event.params.userId
-        const projectId = event.params.projectId
-        const projectData = event.data.data()
-
-        const newProject = {
-            'userId': userId,
-            'created': projectData.created,
-            'status': projectData.status
+            reqStatus = 'denied ';
         }
 
-        return admin.firestore()
-            .collection('system_users').doc(userId)
+        admin.firestore()
+            .collection('requests').doc('users')
+            .collection('activationRequest').doc(requestsId)
+            .set({ status: reqStatus }, { merge: true });
+
+        admin.firestore()
+            .collection('users').doc(userId)
+            .collection('sys_messages')
+            .add(msg, { merge: true });
+
+
+
+        return admin.firestore().collection('users').doc(userId)
+            .collection('info').doc('basic')
+            .set(user_data, { merge: true });
+
+
+    });
+
+exports.submitProjectRequests = functions.firestore
+    .document('requests/users/projectRequest/{requestsId}')
+    .onCreate((snapshot, context) => {
+        
+        const requestsId = context.params.requestsId;
+        const userId = requestsId.split("_")[0];
+        const projectId = requestsId.split("_")[1];
+        const projectData = snapshot.data()
+
+        let msg: UserMessage;
+        let reqStatus: string;
+        let valid: boolean = false;
+
+        // for checks
+        if (projectData.uid === userId) {
+            valid = true
+        }
+
+        if (valid) {
+
+            msg = {
+                uid: userId,
+                msg: 'Project submited - waiting for approval',
+                active: true,
+                date: new Date(),
+                type: 'INFO'
+            }
+
+            reqStatus = 'pennding ';
+
+        } else {
+
+            msg = {
+                uid: userId,
+                msg: 'some error message - will be set in the validation',
+                active: true,
+                date: new Date(),
+                type: 'ERROR'
+            }
+
+            reqStatus = 'denied ';
+        }
+
+        admin.firestore()
+            .collection('users').doc(userId)
+            .collection('sys_messages')
+            .add(msg, { merge: true });
+
+        return admin.firestore().collection('users').doc(userId)
             .collection('projects').doc(projectId)
-            .set(newProject, { merge: true });
-    })
+            .set(projectData, { merge: true });
+    });

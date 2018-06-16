@@ -19,7 +19,7 @@ export class UserGuard implements CanActivate {
     return this.auth.user.pipe(
       take(1),
       map((user) => {
-        if (user.status === 'active') {
+        if (user.roles.subscriber) {
           console.log('Active');
           return true;
         } else {

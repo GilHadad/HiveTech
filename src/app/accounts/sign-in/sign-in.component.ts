@@ -47,27 +47,22 @@ export class SignInComponent implements OnInit {
   }
 
   submit() {
-
-    // const userRef =  this.afs.doc(`users/${user.uid}`);
     const data = {
+      uid: this.auth.loginUserInfo.uid,
+
       userInfo: {
         about_you: this.aboutYou.value,
         school_details: this.schoolDetails.value,
+
+
       },
-      status: 'active',
-      roles: {
-        member: true
-      }
-    };
-    const userInfo = {
-      about_you: this.aboutYou.value,
-      school_details: this.schoolDetails.value,
+      status: 'pending',
+      created: new Date(),
+
 
     };
-
-    this.afs.collection('users').doc(this.auth.loginUserInfo.uid).set(data, { merge: true });
-
-    console.log(userInfo);
+    this.afs.collection('requests').doc('users')
+      .collection('activationRequest').doc(this.auth.loginUserInfo.uid + '_' + this.afs.createId()).set(data);
   }
 
 }

@@ -65,22 +65,6 @@ export class RegistrationComponent implements OnInit {
     @Inject(FormBuilder) fb: FormBuilder,
   ) {
 
-    // this.aboutYou = fb.group({
-    //   firstName: ['', Validators.required],
-    //   lastName: ['', Validators.required],
-    //   email: ['', Validators.required],
-    //   phone: ['', Validators.required],
-    //   dateOfBirth: ['', Validators.required],
-    //   facebook: [''],
-
-    // });
-
-    // this.schoolDetails = fb.group({
-    //   city: ['', Validators.required],
-    //   school: ['', Validators.required],
-    //   class: ['', Validators.required],
-    // });
-
     this.aboutTheIdea = fb.group({
       title: [''],
       description: [''],
@@ -115,20 +99,41 @@ export class RegistrationComponent implements OnInit {
 
     this.projectId = this.afs.createId();
     const projectPath = 'users/' + this.auth.loginUserInfo.uid + '/projects';
+    this.projectListCol = this.afs.collection(projectPath);
+    this.projectList = this.projectListCol.snapshotChanges()
+      .map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
 
-    this.afs.firestore.collection(projectPath).get().then(projectsList => {
-      if (projectsList.size === 0) {
-        const newProject = this.afs.collection(projectPath).add({
-          created: new Date(),
-          status: 'registration'
+          return { id, data };
         });
-      } else {
-        console.log(projectsList.size);
-      }
+      });
 
+
+    // console.log(this.projectList);
+
+    this.projectList.forEach(project => {
+      console.log(project);
     });
+
+
   }
 
+  submit() {
+    console.log('gil hadad');
+    const data = {
+      uid: this.auth.loginUserInfo.uid,
+      aboutTheIdea: this.aboutTheIdea.value,
+      development: this.development.value,
+      projectSteps: this.steps,
+      created: new Date(),
+
+
+    };
+    this.afs.collection('requests').doc('users')
+      .collection('projectRequest').doc(this.auth.loginUserInfo.uid + '_' + this.afs.createId()).set(data);
+  }
 
   add(event: MatChipInputEvent, element: string[]): void {
     const input = event.input;

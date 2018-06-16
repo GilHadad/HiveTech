@@ -43,12 +43,12 @@ import { NavbarHeaderComponent } from './base/navbar-header/navbar-header.compon
 import { PostsComponent } from './blogs/posts/posts.component';
 import { SelectedPostComponent } from './blogs/selected-post/selected-post.component';
 import { CommentComponent } from './blogs/comment/comment.component';
-import { GeneralDialogComponent } from './base/general-dialog/general-dialog.component';
 import { AddPostDialogComponent } from './blogs/add-post-dialog/add-post-dialog.component';
 import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-comment-dialog.component';
 import { ListProjectComponent } from './products/list-project/list-project.component';
 import { RegistrationComponent } from './projects/registration/registration.component';
 import { SignInComponent } from './accounts/sign-in/sign-in.component';
+import { DialogLoadingComponent } from './base/dialog-loading/dialog-loading.component';
 
 
 
@@ -63,12 +63,12 @@ import { SignInComponent } from './accounts/sign-in/sign-in.component';
     PostsComponent,
     SelectedPostComponent,
     CommentComponent,
-    GeneralDialogComponent,
     AddPostDialogComponent,
     AddCommentDialogComponent,
     ListProjectComponent,
     RegistrationComponent,
     SignInComponent,
+    DialogLoadingComponent,
 
 
 

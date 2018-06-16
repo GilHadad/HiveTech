@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators';
 
 interface Roles {
   subscriber?: boolean;
-  editor?: boolean;
+  member?: boolean;
   admin?: boolean;
 }
 

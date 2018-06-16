@@ -11,105 +11,7 @@
   
         <mat-card-content>
           <mat-horizontal-stepper linear>
-<!--   
-            <mat-step>
-              <form [formGroup]="aboutYou">
-                <ng-template matStepLabel>About You</ng-template>
-                <div class="row">
-                  <div class="col-md-6">
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="First name" formControlName="firstName" required>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="Last name" formControlName="lastName" required>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="email" formControlName="email" required>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="Phone" formControlName="phone" required>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-  
-  
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="Date of birth" formControlName="dateOfBirth" [matDatepicker]="pickerDateOfBirth" required>
-                      <mat-datepicker-toggle matSuffix [for]="pickerDateOfBirth"></mat-datepicker-toggle>
-                      <mat-datepicker #pickerDateOfBirth></mat-datepicker>
-                    </mat-form-field>
-  
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="Facebook link" formControlName="facebook">
-                    </mat-form-field>
-                  </div>
-  
-                </div>
-                <div class="row">
-  
-                  <div class="col-md-6">
-                    <button mat-button matStepperNext>Next</button>
-                  </div>
-  
-                  <div class="col-md-6 text-right">
-                      <button color="accent" (click)="saveStep(aboutYou)" mat-raised-button>Save Step</button>
-                    </div>
-  
-                  <div class="col-md-12">
-                    <pre>aboutYou: {{ aboutYou.value | json }}</pre>
-                    <p>aboutYou status: {{ aboutYou.status }}</p>
-                  </div>
-                </div>
-              </form>
-            </mat-step>
-  
-            <mat-step>
-              <form [formGroup]="schoolDetails">
-                <ng-template matStepLabel>About the school</ng-template>
-                <div class="row">
-  
-  
-                  <div class="col-md-6">
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="City" formControlName="city">
-                    </mat-form-field>
-                  </div>
-  
-                  <div class="col-md-6">
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="school" formControlName="school">
-                    </mat-form-field>
-                  </div>
-  
-                  <div class="col-md-6">
-                    <mat-form-field class="test-field">
-                      <input matInput placeholder="Class" formControlName="class">
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-  
-                  <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                  </div>
-  
-                  <div class="col-md-12">
-                    <pre>schoolDetails: {{ schoolDetails.value | json }}</pre>
-                    <p>schoolDetails status: {{ schoolDetails.status }}</p>
-                  </div>
-                </div>
-              </form>
-            </mat-step>
-   -->
+
             <mat-step>
               <form [formGroup]="aboutTheIdea">
                 <ng-template matStepLabel>About The Idea</ng-template>
@@ -338,18 +240,10 @@
                       <mat-card-subtitle>{{step.description}}</mat-card-subtitle>
                     </mat-card-header>
   
-                    <!-- <mat-card-content>
-                      <p>
-                        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes
-                        very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
-                      </p>
-                    </mat-card-content> -->
                     <mat-card-actions>
                       <button mat-button (click)="selectStep(step); navInPage('contactTop')">UPDATE</button>
                       <button mat-button (click)="deleteStep(step)">DELETE</button>
                     </mat-card-actions>
-  
-  
   
                   </mat-card>
                 </div>
@@ -381,6 +275,7 @@
   
             <mat-step>
               <ng-template matStepLabel>Done</ng-template>
+              <button mat-button (click)="submit()">SUBMIT</button>
               You are now done.
               <div>
                 <button mat-button matStepperPrevious>Back</button>

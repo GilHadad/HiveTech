@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneralDialogComponent } from './general-dialog.component';
+import { DialogLoadingComponent } from './dialog-loading.component';
 
-describe('GeneralDialogComponent', () => {
-  let component: GeneralDialogComponent;
-  let fixture: ComponentFixture<GeneralDialogComponent>;
+describe('DialogLoadingComponent', () => {
+  let component: DialogLoadingComponent;
+  let fixture: ComponentFixture<DialogLoadingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GeneralDialogComponent ]
+      declarations: [ DialogLoadingComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GeneralDialogComponent);
+    fixture = TestBed.createComponent(DialogLoadingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
