@@ -1,10 +1,6 @@
+"use strict";
 // import * as functions from 'firebase-functions';
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+Object.defineProperty(exports, "__esModule", { value: true });
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
@@ -19,6 +15,7 @@ exports.setNewUser = functions.auth.user().onCreate((user) => {
             admin: false
         },
         status: 'guest',
+        created: new Date()
     };
     return admin.firestore().collection('users').doc(user.uid).set(data, { merge: true });
 });
@@ -32,6 +29,7 @@ exports.createUserRequest = functions.firestore
     let roles;
     let msg;
     let reqStatus;
+    console.log(newUserInfo);
     // for checks
     const valid = true;
     user_data = {
@@ -65,6 +63,10 @@ exports.createUserRequest = functions.firestore
         };
         reqStatus = 'denied ';
     }
+    ;
+    user_data.user_info.uid = userId;
+    user_data.school.uid = userId;
+    console.log(user_data);
     admin.firestore()
         .collection('requests').doc('users')
         .collection('activationRequest').doc(requestsId)
@@ -73,9 +75,12 @@ exports.createUserRequest = functions.firestore
         .collection('users').doc(userId)
         .collection('sys_messages')
         .add(msg, { merge: true });
+    admin.firestore().collection('users').doc(userId)
+        .collection('info').doc('school')
+        .set(user_data.school, { merge: true });
     return admin.firestore().collection('users').doc(userId)
         .collection('info').doc('basic')
-        .set(user_data, { merge: true });
+        .set(user_data.user_info, { merge: true });
 });
 exports.submitProjectRequests = functions.firestore
     .document('requests/users/projectRequest/{requestsId}')

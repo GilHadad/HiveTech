@@ -7,6 +7,8 @@
 //  response.send("Hello from Firebase!");
 // });
 
+import {Configuration} from './configuration'
+
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
@@ -46,10 +48,12 @@ exports.createUserRequest = functions.firestore
         const userId = requestsId.split("_")[0];
         const newUserInfo = snapshot.data()
 
-        let user_data: {};
+        let user_data: any;
         let roles: {};
         let msg: UserMessage;
         let reqStatus: string;
+
+        console.log(newUserInfo)
 
         // for checks
         const valid: boolean = true
@@ -91,26 +95,35 @@ exports.createUserRequest = functions.firestore
             }
 
             reqStatus = 'denied ';
-        }
+        };
+
+        user_data.user_info.uid = userId;
+        user_data.school.uid = userId;
+
+        console.log(user_data)
+
 
         admin.firestore()
             .collection('requests').doc('users')
             .collection('activationRequest').doc(requestsId)
             .set({ status: reqStatus }, { merge: true });
 
+            
         admin.firestore()
             .collection('users').doc(userId)
             .collection('sys_messages')
             .add(msg, { merge: true });
 
-
+        admin.firestore().collection('users').doc(userId)
+            .collection('info').doc('school')
+            .set(user_data.school, { merge: true });
 
         return admin.firestore().collection('users').doc(userId)
             .collection('info').doc('basic')
-            .set(user_data, { merge: true });
+            .set(user_data.user_info, { merge: true });
 
 
-    });
+});
 
 exports.submitProjectRequests = functions.firestore
     .document('requests/users/projectRequest/{requestsId}')

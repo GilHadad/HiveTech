@@ -3,8 +3,9 @@ import { AuthService } from '../../core/auth.service';
 
 
 
-interface Product {
+interface CommunityRoles {
   title: string;
+  subTitel: string;
   descripton: string;
   img: string;
   slug: string;
@@ -24,11 +25,11 @@ export class HomeComponent implements OnInit {
 
   title: string;
   content: string;
-  products: Product[];
+  communityRoles: CommunityRoles[];
   points: Point[];
 
   pageText: {
-    title: {code: 'title', en: 'Welcome to HiveTech', heb: 'ברוכים הבאים לHiveTech'}
+    title: { code: 'title', en: 'Welcome to HiveTech', heb: 'ברוכים הבאים לHiveTech' }
   };
 
   constructor(public auth: AuthService) {
@@ -46,18 +47,23 @@ export class HomeComponent implements OnInit {
     `;
 
 
-    this.products = [
+    this.communityRoles = [
       {
-        title: 'I have an idea',
-        descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla',
-        img: 'https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot.com/o/assets%2Fhome%2Fbright-idea.jpg?alt=media&token=0b6f3b6c-e759-4125-82df-f6cbab29ab97',
+        title: 'Entrepreneur',
+        subTitel: 'I have an idea',
+        descripton: ' bla bla bla bla bla bla bla bla bla bla bla bla',
+        img: 'https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot' +
+          '.com/o/assets%2Fhome%2Fbright-idea.jpg?alt=media&token=0b6f3b6c-e759-' +
+          '4125-82df-f6cbab29ab97',
         slug: '/project-registration',
       },
       {
-        title: 'I have money',
+        title: 'Investor',
+        subTitel: 'I have money',
         descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla',
-        // @ts-ignore
-        img: 'https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot.com/o/assets%2Fhome%2Finvest.jpg?alt=media&token=327eb166-c39f-4e63-bc7f-e9998c2664a2',
+        img: 'https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot' +
+        '.com/o/assets%2Fhome%2Finvest.jpg?alt=media&token=327eb166-c39f-4e63-bc' +
+        '7f-e9998c2664a2',
         slug: '/i-have-money',
       }
     ];

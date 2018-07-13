@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-dialog-loading',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogLoadingComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<DialogLoadingComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  color = 'primary';
+  mode = 'indeterminate';
 
   ngOnInit() {
   }
 
+  onNoClick(): void {
+
+  }
+
 }
+
+
+
+// this.thisDialogRef.close('')

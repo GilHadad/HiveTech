@@ -22,40 +22,97 @@
               <h4>{{content}}</h4>
             </mat-card-subtitle>
           </mat-grid-tile>
-
         </mat-grid-list>
-
-        <!-- <mat-grid-list cols="3">
-          <mat-grid-tile *ngFor="let point of points">
-
-            <div>{{point.title}}</div>
-            <div>{{point.descripton}}</div>
-          </mat-grid-tile>
-        </mat-grid-list> -->
-
       </div>
+      <mat-card-footer class="card-actions">
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-footer>
     </mat-card>
     <br/>
 
-    <div *ngFor="let product of products">
+
+    <!-- <mat-card>
+      <div class="row">
+        <div class="col-4">
+          <img src="../../../assets/home page/google icon.png" alt="" width="100" height="100">
+        </div>
+        <div class="col-4"></div>
+        <div class="col-4">
+          <button mat-raised-button color="accent" class="center">LIKE</button>
+        </div>
+
+      </div>
+      <mat-card-footer class="card-actions">
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-footer>
+    </mat-card> -->
+
+    <br/>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-subtitle>
+          <h2>Be a part of our comunity</h2>
+          sdf sdfsdfsdf sdfsdfsdf sdf sdf sdfsdf sdfsdf sdf
+        </mat-card-subtitle>
+      </mat-card-header>
+      <div class="card-content">
+        <div class="row">
+          <div class="col-6" *ngFor="let role of communityRoles">
+            <div class="row">
+              <div class="col-12 center">
+                <div class="text-title">{{role.title}}</div>
+                <div class="text-sub-title">{{role.subTitel}}</div>
+                <img src={{role.img}} alt="" width="250" height="250">
+              </div>
+
+              <div class="col-2"></div>
+              <div class="col-8">
+                <div class="text-content">{{role.descripton}}</div>
+                <div>
+                  <button routerLink={{role.slug}} routerLinkActive='active' mat-button>GET STARTED</button>
+                  <button mat-button>MORE INFO</button>
+                </div>
+              </div>
+              <div class="col-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-card-footer class="card-actions">
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-footer>
+    </mat-card>
+
+    <br/>
+
+
+
+
+
+    <!-- 
+    <div *ngFor="let role of communityRoles">
       <mat-card>
 
         <mat-card-header>
 
-          <img src={{product.img}} alt="" width="250" height="250">
+          <img src={{role.img}} alt="" width="250" height="250">
 
-          <mat-card-title>{{product.title}}</mat-card-title>
-          <mat-card-subtitle>{{product.descripton}}</mat-card-subtitle>
+          <mat-card-title>{{role.title}}</mat-card-title>
+          <mat-card-subtitle>{{role.descripton}}</mat-card-subtitle>
 
         </mat-card-header>
         <mat-card-actions>
-          <button a class="navbar-brand" routerLink={{product.slug}} routerLinkActive='active' mat-button>Get started</button>
+          <button a class="navbar-brand" routerLink={{role.slug}} routerLinkActive='active' mat-button>Get started</button>
           <button mat-button>SHARE</button>
         </mat-card-actions>
       </mat-card>
       <br/>
     </div>
-    <br/>
+    <br/> -->
 
 
   </div>

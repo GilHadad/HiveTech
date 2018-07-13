@@ -11,6 +11,7 @@ import { HomeComponent } from './base/home/home.component';
 import { ListProjectComponent } from './products/list-project/list-project.component';
 import { RegistrationComponent } from './projects/registration/registration.component';
 import { SignInComponent } from './accounts/sign-in/sign-in.component';
+import { TestingComponent } from './testing/testing.component';
 
 const appRoutes: Routes = [
     {
@@ -33,11 +34,10 @@ const appRoutes: Routes = [
         component: SignInComponent,
         canActivate: [AuthGuard]
     },
-    // {
-    //     path: 'aaa',
-    //     component: EntrepreneurSingInFormComponent,
-    //     canActivate: [AuthGuard]
-    // },
+    {
+        path: 'testing',
+        component: TestingComponent,
+    },
     // {
     //     path: 'bbb',
     //     component: UserProfileComponent,

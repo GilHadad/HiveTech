@@ -31,6 +31,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -49,6 +51,8 @@ import { ListProjectComponent } from './products/list-project/list-project.compo
 import { RegistrationComponent } from './projects/registration/registration.component';
 import { SignInComponent } from './accounts/sign-in/sign-in.component';
 import { DialogLoadingComponent } from './base/dialog-loading/dialog-loading.component';
+import { DialogInfoComponent } from './base/dialog-info/dialog-info.component';
+import { TestingComponent } from './testing/testing.component';
 
 
 
@@ -69,6 +73,8 @@ import { DialogLoadingComponent } from './base/dialog-loading/dialog-loading.com
     RegistrationComponent,
     SignInComponent,
     DialogLoadingComponent,
+    DialogInfoComponent,
+    TestingComponent,
 
 
 
@@ -110,13 +116,16 @@ import { DialogLoadingComponent } from './base/dialog-loading/dialog-loading.com
     MatTabsModule,
     MatDialogModule,
     MatGridListModule,
-
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     AddPostDialogComponent,
     AddCommentDialogComponent,
+    DialogLoadingComponent,
+    DialogInfoComponent,
   ],
 })
 export class AppModule { }
