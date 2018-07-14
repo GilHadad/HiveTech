@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
+import * as images from '../storage-links.json';
+import * as strings from '../storage-strings.json';
 
 
 
@@ -22,6 +24,9 @@ interface Point {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  imgLinks = (<any>images);
+  textString = (<any>strings);
 
   title: string;
   content: string;
@@ -52,18 +57,14 @@ export class HomeComponent implements OnInit {
         title: 'Entrepreneur',
         subTitel: 'I have an idea',
         descripton: ' bla bla bla bla bla bla bla bla bla bla bla bla',
-        img: 'https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot' +
-          '.com/o/assets%2Fhome%2Fbright-idea.jpg?alt=media&token=0b6f3b6c-e759-' +
-          '4125-82df-f6cbab29ab97',
+        img: this.imgLinks.entrepreneur,
         slug: '/project-registration',
       },
       {
         title: 'Investor',
         subTitel: 'I have money',
         descripton: 'bla bla bla bla bla bla bla bla bla bla bla bla',
-        img: 'https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot' +
-        '.com/o/assets%2Fhome%2Finvest.jpg?alt=media&token=327eb166-c39f-4e63-bc' +
-        '7f-e9998c2664a2',
+        img: this.imgLinks.investor,
         slug: '/i-have-money',
       }
     ];

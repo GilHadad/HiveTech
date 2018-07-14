@@ -30,13 +30,13 @@
 .text-title {
     font-size: 24px;
     color: rgba(0,0,0,.54);
-    
+
 }
 
 .text-sub-title {
     font-size: 18px;
     color: rgba(0,0,0,.54);
-    
+
 }
 
 .text-content {
@@ -45,3 +45,13 @@
 }
 
 
+.auth-btn {
+  height: 100%;
+  /* text-align: center; */
+  padding-top: 30PX
+
+}
+
+.image {
+  text-align: center;
+}

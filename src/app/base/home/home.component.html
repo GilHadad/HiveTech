@@ -14,8 +14,7 @@
             </mat-card-subtitle>
           </mat-grid-tile>
           <mat-grid-tile [colspan]=1>
-            <img src="https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot.com/o/base%2Flogo.png?alt=media&token=0c8cd975-3fb1-4f30-b29a-334498bdd3eb"
-              height="100%">
+            <img src="{{imgLinks.logo}}" height="100%">
           </mat-grid-tile>
           <mat-grid-tile [colspan]=4>
             <mat-card-subtitle>
@@ -30,57 +29,67 @@
       </mat-card-footer>
     </mat-card>
     <br/>
-
-
-    <!-- <mat-card>
-      <div class="row">
-        <div class="col-4">
-          <img src="../../../assets/home page/google icon.png" alt="" width="100" height="100">
-        </div>
-        <div class="col-4"></div>
-        <div class="col-4">
-          <button mat-raised-button color="accent" class="center">LIKE</button>
-        </div>
-
-      </div>
-      <mat-card-footer class="card-actions">
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-footer>
-    </mat-card> -->
-
     <br/>
 
     <mat-card>
       <mat-card-header>
         <mat-card-subtitle>
-          <h2>Be a part of our comunity</h2>
-          sdf sdfsdfsdf sdfsdfsdf sdf sdf sdfsdf sdfsdf sdf
+          <h2>{{textString.joinUs_title}}</h2>
+          <p>{{textString.joinUs_content}}</p>
         </mat-card-subtitle>
       </mat-card-header>
-      <div class="card-content">
-        <div class="row">
-          <div class="col-6" *ngFor="let role of communityRoles">
-            <div class="row">
-              <div class="col-12 center">
-                <div class="text-title">{{role.title}}</div>
-                <div class="text-sub-title">{{role.subTitel}}</div>
-                <img src={{role.img}} alt="" width="250" height="250">
-              </div>
 
-              <div class="col-2"></div>
-              <div class="col-8">
-                <div class="text-content">{{role.descripton}}</div>
-                <div>
-                  <button routerLink={{role.slug}} routerLinkActive='active' mat-button>GET STARTED</button>
-                  <button mat-button>MORE INFO</button>
+
+      <div *ngIf="auth.user | async; then authenticated else guest"></div>
+      <div class="card-content">
+        <ng-template #authenticated>
+
+          <div class="row">
+            <div class="col-6" *ngFor="let role of communityRoles">
+              <div class="row">
+                <div class="col-12 center">
+                  <div class="text-title">{{role.title}}</div>
+                  <div class="text-sub-title">{{role.subTitel}}</div>
+                  <img src={{role.img}} alt="" width="250" height="250">
                 </div>
+
+                <div class="col-2"></div>
+                <div class="col-8">
+                  <div class="text-content">{{role.descripton}}</div>
+                  <div>
+                    <button routerLink={{role.slug}} routerLinkActive='active' mat-button>GET STARTED</button>
+                    <button mat-button>MORE INFO</button>
+                  </div>
+                </div>
+                <div class="col-2"></div>
               </div>
-              <div class="col-2"></div>
             </div>
           </div>
-        </div>
+
+        </ng-template>
+        <ng-template #guest>
+          <div class="row">
+            <div class="col-4 image">
+              <img src={{imgLinks.incognito}} alt="" width="250" height="250">
+            </div>
+            <div class="col-8">
+              <div class="text-title">Hi there, dont be a stranger,</div>
+              <div class="text-title">we want to get to know you :)</div>
+              <div class="text-title">please authenticated with your Google account, THANKS!</div>
+              <div class="auth-btn">
+                <button class="btn btn-lg" (click)="auth.googleLogin()">
+                  <i class="fa fa-google"></i> Connect Google
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </ng-template>
+
       </div>
+
+
       <mat-card-footer class="card-actions">
         <button mat-button>LIKE</button>
         <button mat-button>SHARE</button>
@@ -93,7 +102,7 @@
 
 
 
-    <!-- 
+    <!--
     <div *ngFor="let role of communityRoles">
       <mat-card>
 
