@@ -38,10 +38,6 @@ const appRoutes: Routes = [
         path: 'testing',
         component: TestingComponent,
     },
-    // {
-    //     path: 'bbb',
-    //     component: UserProfileComponent,
-    // },
     {
         path: 'posts',
         component: PostsComponent,

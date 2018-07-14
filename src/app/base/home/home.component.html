@@ -1,128 +1,16 @@
 <div class="home-boby">
   <div class="container">
 
+<app-dialog-welcome></app-dialog-welcome>
 
 
-
-    <mat-card>
-      <div class="home-contact">
-
-        <mat-grid-list cols="4">
-          <mat-grid-tile [colspan]=3>
-            <mat-card-subtitle>
-              <h1>{{title}}</h1>
-            </mat-card-subtitle>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]=1>
-            <img src="{{imgLinks.logo}}" height="100%">
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]=4>
-            <mat-card-subtitle>
-              <h4>{{content}}</h4>
-            </mat-card-subtitle>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
-      <mat-card-footer class="card-actions">
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-footer>
-    </mat-card>
     <br/>
     <br/>
 
-    <mat-card>
-      <mat-card-header>
-        <mat-card-subtitle>
-          <h2>{{textString.joinUs_title}}</h2>
-          <p>{{textString.joinUs_content}}</p>
-        </mat-card-subtitle>
-      </mat-card-header>
+    <app-dialog-join-us></app-dialog-join-us>
 
-
-      <div *ngIf="auth.user | async; then authenticated else guest"></div>
-      <div class="card-content">
-        <ng-template #authenticated>
-
-          <div class="row">
-            <div class="col-6" *ngFor="let role of communityRoles">
-              <div class="row">
-                <div class="col-12 center">
-                  <div class="text-title">{{role.title}}</div>
-                  <div class="text-sub-title">{{role.subTitel}}</div>
-                  <img src={{role.img}} alt="" width="250" height="250">
-                </div>
-
-                <div class="col-2"></div>
-                <div class="col-8">
-                  <div class="text-content">{{role.descripton}}</div>
-                  <div>
-                    <button routerLink={{role.slug}} routerLinkActive='active' mat-button>GET STARTED</button>
-                    <button mat-button>MORE INFO</button>
-                  </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-            </div>
-          </div>
-
-        </ng-template>
-        <ng-template #guest>
-          <div class="row">
-            <div class="col-4 image">
-              <img src={{imgLinks.incognito}} alt="" width="250" height="250">
-            </div>
-            <div class="col-8">
-              <div class="text-title">Hi there, dont be a stranger,</div>
-              <div class="text-title">we want to get to know you :)</div>
-              <div class="text-title">please authenticated with your Google account, THANKS!</div>
-              <div class="auth-btn">
-                <button class="btn btn-lg" (click)="auth.googleLogin()">
-                  <i class="fa fa-google"></i> Connect Google
-                </button>
-              </div>
-
-            </div>
-
-          </div>
-        </ng-template>
-
-      </div>
-
-
-      <mat-card-footer class="card-actions">
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-footer>
-    </mat-card>
 
     <br/>
-
-
-
-
-
-    <!--
-    <div *ngFor="let role of communityRoles">
-      <mat-card>
-
-        <mat-card-header>
-
-          <img src={{role.img}} alt="" width="250" height="250">
-
-          <mat-card-title>{{role.title}}</mat-card-title>
-          <mat-card-subtitle>{{role.descripton}}</mat-card-subtitle>
-
-        </mat-card-header>
-        <mat-card-actions>
-          <button a class="navbar-brand" routerLink={{role.slug}} routerLinkActive='active' mat-button>Get started</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
-      </mat-card>
-      <br/>
-    </div>
-    <br/> -->
-
 
   </div>
 </div>

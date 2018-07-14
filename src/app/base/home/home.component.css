@@ -1,57 +1,31 @@
 .home-boby {
     padding: 100px 0px 100px 0px;
-    /* background:url(https://firebasestorage.googleapis.com/v0/b/hivetech-d2098.appspot.com/o/base%2Fbackground.jpg?alt=media&token=9337d743-7a1f-4a92-98ea-8e06213fc77e)  no-repeat right top; */
-    /* background-size:100%; */
-    /* background-color: #FFE57F; */
-    /* ?width: 100%; */
 }
 
-.home-contact {
-    height: 100%;
-}
 
 .card-actions {
-    background: #EEEEEE;
-    margin-top: 24px;
-}
-.card-content {
-    margin: 0 8px
+  background: #EEEEEE;
+  margin-top: 24px;
+  color: rgba(0,0,0,.54);
 }
 
-.center {
-    color: rgba(0,0,0,.54);
-    text-align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-}
-
-.text-title {
-    font-size: 24px;
-    color: rgba(0,0,0,.54);
+.dialog-title {
+  font-size: 30px;
+  white-space: pre-line;
 
 }
 
-.text-sub-title {
-    font-size: 18px;
-    color: rgba(0,0,0,.54);
+.dialog-sub-title {
+  font-size: 25px;
+  white-space: pre-line;
 
 }
 
-.text-content {
-    color: rgba(0,0,0,.54);
-    font-size: 14px;
-}
+.dialog-content {
+  font-size: 20px;
+  white-space: pre-line;
+  padding-bottom: 15px;
+  text-align: justify;
+  text-justify: inter-word;
 
-
-.auth-btn {
-  height: 100%;
-  /* text-align: center; */
-  padding-top: 30PX
-
-}
-
-.image {
-  text-align: center;
 }

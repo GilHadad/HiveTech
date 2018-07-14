@@ -1,0 +1,60 @@
+<mat-card>
+  <div class="page-content">
+
+        <div class="dialog-title">{{textString.dialogJoinUs_title}}</div>
+        <p class="dialog-content">{{textString.dialogJoinUs_content}}</p>
+
+
+
+    <div *ngIf="auth.user | async; then authenticated else guest"></div>
+
+      <ng-template #authenticated>
+
+        <div class="row">
+          <div class="col-12" *ngFor="let role of communityRoles">
+            <div class="row">
+                <div class="col-4 center-xy">
+                    <img src={{role.img}} alt="" width="300" class="img">
+                </div>
+                <div class="col-8">
+                    <div class="object-title">{{role.title}}</div>
+                    <div class="object-sub-title">{{role.subTitel}}</div>
+                    <div class="object-content">{{role.descripton}}</div>
+                    <div>
+                        <button mat-raised-button color="accent" routerLink={{role.slug}} routerLinkActive='active'>GET STARTED</button>
+                        <button mat-raised-button color="accent">MORE INFO</button>
+                      </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #guest>
+        <div class="row">
+          <div class="col-4 center-xy">
+            <img src={{imgLinks.incognito}} alt="" width="250" height="250">
+          </div>
+          <div class="col-8">
+            <div class="dialog-content">{{textString.dialogJoinUs_incognito_content}}</div>
+            <div>
+              <button mat-raised-button color="accent" (click)="auth.googleLogin()">
+                <i class="fa fa-google"></i> Connect Google
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </ng-template>
+
+
+
+
+    <mat-card-footer class="card-actions">
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-footer>
+  </div>
+
+  </mat-card>

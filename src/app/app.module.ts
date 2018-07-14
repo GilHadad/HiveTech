@@ -51,6 +51,8 @@ import { ListProjectComponent } from './products/list-project/list-project.compo
 import { RegistrationComponent } from './projects/registration/registration.component';
 import { SignInComponent } from './accounts/sign-in/sign-in.component';
 import { TestingComponent } from './testing/testing.component';
+import { DialogWelcomeComponent } from './base/dialog-welcome/dialog-welcome.component';
+import { DialogJoinUsComponent } from './base/dialog-join-us/dialog-join-us.component';
 
 
 
@@ -71,6 +73,8 @@ import { TestingComponent } from './testing/testing.component';
     RegistrationComponent,
     SignInComponent,
     TestingComponent,
+    DialogWelcomeComponent,
+    DialogJoinUsComponent,
 
 
 

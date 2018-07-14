@@ -23,8 +23,6 @@ export class UserGuard implements CanActivate {
           console.log('Active');
           return true;
         } else {
-          // console.log('NOT Active');
-          // console.log(user.status);
           return false;
         }
       }),
