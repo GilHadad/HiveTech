@@ -50,8 +50,6 @@ import { AddCommentDialogComponent } from './blogs/add-comment-dialog/add-commen
 import { ListProjectComponent } from './products/list-project/list-project.component';
 import { RegistrationComponent } from './projects/registration/registration.component';
 import { SignInComponent } from './accounts/sign-in/sign-in.component';
-import { DialogLoadingComponent } from './base/dialog-loading/dialog-loading.component';
-import { DialogInfoComponent } from './base/dialog-info/dialog-info.component';
 import { TestingComponent } from './testing/testing.component';
 
 
@@ -72,8 +70,6 @@ import { TestingComponent } from './testing/testing.component';
     ListProjectComponent,
     RegistrationComponent,
     SignInComponent,
-    DialogLoadingComponent,
-    DialogInfoComponent,
     TestingComponent,
 
 
@@ -124,8 +120,6 @@ import { TestingComponent } from './testing/testing.component';
   entryComponents: [
     AddPostDialogComponent,
     AddCommentDialogComponent,
-    DialogLoadingComponent,
-    DialogInfoComponent,
   ],
 })
 export class AppModule { }
